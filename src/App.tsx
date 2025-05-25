@@ -2,6 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 import bgImg from './assets/bgImg.png';
 import Header from './components/Header';
+import Department from './components/Department';
 import OrgStructure from './components/OrgStructure';
 import Banner from './components/Banner';
 import CultureSection from './components/CultureSection';
@@ -21,6 +22,7 @@ function App() {
   const [showContact, setShowContact] = useState(false);
   const [showOrgStructure, setShowOrgStructure] = useState(false);
   const [showWho, setShowWho] = useState(false);
+  const [showDepartment, setShowDepartment] = useState(false);
 
   return (
     <LanguageProvider>
@@ -43,7 +45,10 @@ function App() {
           <Header />
           <Banner />
           <CultureSection />
-          <IconsSection onAboutUsClick={() => setShowAboutUs(true)} />
+          <IconsSection 
+            onAboutUsClick={() => setShowAboutUs(true)} 
+            onDepartmentClick={() => setShowDepartment(true)}
+          />
           <PanjikaranSection />
           <Others />
           <KaryakalapSection />
@@ -74,6 +79,9 @@ function App() {
           )}
           {showWho && (
             <Who onClose={() => setShowWho(false)} />
+          )}
+          {showDepartment && (
+            <Department onClose={() => setShowDepartment(false)} />
           )}
         </div>
         <div className="hidden sm:block fixed inset-0 flex items-center justify-center bg-gray-100">

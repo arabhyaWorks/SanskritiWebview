@@ -12,12 +12,13 @@ import nagrikCharter from '../assets/icons/NagrikCharter.png';
 
 interface IconsSectionProps {
   onAboutUsClick: () => void;
+  onDepartmentClick: () => void;
 }
 
-const IconsSection: React.FC<IconsSectionProps> = ({ onAboutUsClick }) => {
+const IconsSection: React.FC<IconsSectionProps> = ({ onAboutUsClick, onDepartmentClick }) => {
   const icons = [
-    { img: humareBareMein, text: 'हमारे बारे में', key: 'about-us', onClick: onAboutUsClick },
-    { img: vibhag, text: 'विभाग', key: 'department' },
+    { img: humareBareMein, text: 'हमारे बारे में', key: 'about-us', onClick: onAboutUsClick, 'data-about-us': true },
+    { img: vibhag, text: 'विभाग', key: 'department', onClick: onDepartmentClick },
     { img: kalakarPanjikaran, text: 'कलाकार\nपंजीकरण', key: 'artist-registration' },
     { img: sanskritikKaryakram, text: 'सांस्कृतिक कार्यक्रम', key: 'cultural-program' },
     { img: uttarPradesh, text: 'उत्तर प्रदेश की संरचना', key: 'up-structure' },

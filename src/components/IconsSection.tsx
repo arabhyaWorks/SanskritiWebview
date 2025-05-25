@@ -10,17 +10,21 @@ import kalyankariYojnayen from '../assets/icons/KalyankariYojnayen.png';
 import prekshagrihaBooking from '../assets/icons/PrekshagrihaBooking.png';
 import nagrikCharter from '../assets/icons/NagrikCharter.png';
 
-const IconsSection: React.FC = () => {
+interface IconsSectionProps {
+  onAboutUsClick: () => void;
+}
+
+const IconsSection: React.FC<IconsSectionProps> = ({ onAboutUsClick }) => {
   const icons = [
-    { img: humareBareMein, text: 'हमारे बारे में' },
-    { img: vibhag, text: 'विभाग' },
-    { img: kalakarPanjikaran, text: 'कलाकार\nपंजीकरण' },
-    { img: sanskritikKaryakram, text: 'सांस्कृतिक कार्यक्रम' },
-    { img: uttarPradesh, text: 'उत्तर प्रदेश की संरचना' },
-    { img: dirgha, text: 'दीर्घा' },
-    { img: kalyankariYojnayen, text: 'कल्याणकारी योजनायें' },
-    { img: prekshagrihaBooking, text: 'प्रेक्षागृह\nबुकिंग' },
-    { img: nagrikCharter, text: 'नागरिक\nचार्टर' },
+    { img: humareBareMein, text: 'हमारे बारे में', key: 'about-us', onClick: onAboutUsClick },
+    { img: vibhag, text: 'विभाग', key: 'department' },
+    { img: kalakarPanjikaran, text: 'कलाकार\nपंजीकरण', key: 'artist-registration' },
+    { img: sanskritikKaryakram, text: 'सांस्कृतिक कार्यक्रम', key: 'cultural-program' },
+    { img: uttarPradesh, text: 'उत्तर प्रदेश की संरचना', key: 'up-structure' },
+    { img: dirgha, text: 'दीर्घा', key: 'gallery' },
+    { img: kalyankariYojnayen, text: 'कल्याणकारी योजनायें', key: 'welfare-schemes' },
+    { img: prekshagrihaBooking, text: 'प्रेक्षागृह\nबुकिंग', key: 'auditorium-booking' },
+    { img: nagrikCharter, text: 'नागरिक\nचार्टर', key: 'citizen-charter' },
   ];
 
   return (
@@ -28,7 +32,10 @@ const IconsSection: React.FC = () => {
       <div className="grid grid-cols-3 gap-4">
         {icons.map((icon, index) => (
           <div key={index} className="flex flex-col items-center">
-            <div className="bg-white rounded-2xl shadow-lg  pb-2 w-24 h-24 flex flex-col items-center">
+            <div 
+              className="bg-white rounded-2xl shadow-lg pb-2 w-24 h-24 flex flex-col items-center cursor-pointer active:scale-95 transition-transform"
+              onClick={icon.onClick}
+            >
               <img src={icon.img} alt={icon.text} className="w-16 h-16" />
               <p
                 className="font-['Baloo_2'] font-bold text-center text-[15px] whitespace-pre-line text-[#9C0505]"

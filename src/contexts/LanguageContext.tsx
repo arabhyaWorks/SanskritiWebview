@@ -41,11 +41,11 @@ interface LanguageProviderProps {
 }
 
 export function LanguageProvider({ children }: LanguageProviderProps) {
-  const [currentLanguage, setCurrentLanguage] = useState('en');
+  const [currentLanguage, setCurrentLanguage] = useState('hi');
   const [isLoading, setIsLoading] = useState(false);
 
   const translate = useCallback(async (text: string) => {
-    const sourceLang = text.match(/^[a-zA-Z\s,.!?]+$/) ? 'en' : 'hi';
+    const sourceLang = 'hi';
     
     setIsLoading(true);
     try {

@@ -1,5 +1,9 @@
-import  { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useLanguage } from '../contexts/LanguageContext';
+
+const stripHtmlTags = (str: string) => {
+  return str.replace(/<[^>]*>/g, '');
+};
 
 interface TranslatableTextProps {
   text: string;
@@ -21,7 +25,7 @@ export function TranslatableText({
     let isMounted = true;
 
     const translateContent = async () => {
-      if (currentLanguage === 'en') {
+      if (currentLanguage === 'hi') {
         setTranslatedText(text);
         return;
       }
@@ -30,7 +34,8 @@ export function TranslatableText({
       setError(null);
       
       try {
-        const result = await translate(text);
+        const textToTranslate = stripHtmlTags(text);
+        const result = await translate(textToTranslate);
         if (isMounted) {
           setTranslatedText(result);
         }
@@ -60,6 +65,15 @@ export function TranslatableText({
       <Component className={`${className} animate-pulse bg-gray-200 rounded`}>
         {text}
       </Component>
+    );
+  }
+
+  if (currentLanguage === 'hi') {
+    return (
+      <Component
+        className={className}
+        dangerouslySetInnerHTML={{ __html: text }}
+      />
     );
   }
 

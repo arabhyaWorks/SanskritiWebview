@@ -1,6 +1,6 @@
 export const supportedLanguages = [
-  { code: 'en', name: 'English' },
   { code: 'hi', name: 'हिन्दी' },
+  { code: 'en', name: 'English' },
   { code: 'bn', name: 'বাংলা' },
   { code: 'mr', name: 'मराठी' },
   { code: 'or', name: 'ଓଡ଼ିଆ' },

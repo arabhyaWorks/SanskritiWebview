@@ -3,6 +3,7 @@ import { TranslatableText } from './TranslatableText';
 import { ChevronLeft, LayoutTemplate, Users2, PhoneCall } from 'lucide-react';
 import abstract from '../assets/abstract.png';
 import Footer from './Footer';
+import backgroundImage from '../assets/VibhgaBG.avif';
 
 interface AboutUsProps {
   onClose: () => void;
@@ -14,6 +15,14 @@ interface AboutUsProps {
 const AboutUs: React.FC<AboutUsProps> = ({ onClose, onOrgStructureClick, onWhoClick, onContactClick }) => {
   return (
     <div className="fixed inset-0 bg-gradient-to-b from-white to-[#FFF8F8] z-50 overflow-y-auto">
+            <div 
+        className="fixed inset-0 w-full h-full"
+        style={{
+          background: `url(${backgroundImage}) center/cover no-repeat`,
+          backgroundAttachment: 'fixed',
+          zIndex: -1
+        }}
+      />
       <div className="sticky top-0 bg-white/80 backdrop-blur-sm z-10 shadow-sm">
         <div className="flex items-center gap-3 p-4 max-w-2xl mx-auto">
           <button

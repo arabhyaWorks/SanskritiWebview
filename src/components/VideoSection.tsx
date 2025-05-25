@@ -1,5 +1,6 @@
 import React, { useState, useRef } from 'react';
 import ReactPlayer from 'react-player';
+import { TranslatableText } from './TranslatableText';
 import bgVideo from '../assets/bgVideo.png';
 import { Play, Pause, Volume2, VolumeX, Maximize, Minimize } from 'lucide-react';
 
@@ -57,9 +58,11 @@ const VideoSection: React.FC = () => {
           minHeight: '320px'
         }}
       >
-        <h2 className="text-[#5A1616] text-2xl font-bold text-center mb-2 mt-6 font-['Baloo_2']">
-          उत्तर प्रदेश का इतिहास : लघु फ़िल्म
-        </h2>
+        <TranslatableText
+          text="उत्तर प्रदेश का इतिहास : लघु फ़िल्म"
+          className="text-[#5A1616] text-2xl font-bold text-center mb-2 mt-6 font-['Baloo_2']"
+          as="h2"
+        />
         
         <div className="player-container relative rounded-xl overflow-hidden bg-black/10 backdrop-blur-sm mb-4" style={{ aspectRatio: '16/9' }}>
           <ReactPlayer

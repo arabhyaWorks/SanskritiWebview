@@ -1,4 +1,5 @@
 import React from 'react';
+import { TranslatableText } from './TranslatableText';
 import karyakalap1 from '../assets/Karyakalap/1.png';
 import karyakalap2 from '../assets/Karyakalap/2.png';
 import karyakalap3 from '../assets/Karyakalap/3.png';
@@ -6,17 +7,19 @@ import abstract from '../assets/abstract.png';
 
 const KaryakalapSection: React.FC = () => {
   const items = [
-    { img: karyakalap1, text: 'बेगम अख्तर\nपुरस्कार' },
-    { img: karyakalap2, text: 'संत रविदास\nकला सम्मान' },
-    { img: karyakalap3, text: 'वृद्घ एवं विपन्न\nकलाकारों की\nमासिक पेंशन हेतु\nआवेदन-पत्र' },
+    { img: karyakalap1, text: 'बेगम अख्तर\nपुरस्कार', key: 'begum-akhtar' },
+    { img: karyakalap2, text: 'संत रविदास\nकला सम्मान', key: 'sant-ravidas' },
+    { img: karyakalap3, text: 'वृद्घ एवं विपन्न\nकलाकारों की\nमासिक पेंशन हेतु\nआवेदन-पत्र', key: 'pension' },
   ];
 
   return (
     <div>
       <div className="w-full px-4 flex flex-col items-center">
-        <h1 className="font-['Inter'] font-bold text-[24px] text-[#5A1616] text-center leading-tight">
-          कार्य कलाप
-        </h1>
+        <TranslatableText
+          text="कार्य कलाप"
+          className="font-['Inter'] font-bold text-[24px] text-[#5A1616] text-center leading-tight"
+          as="h1"
+        />
         <img
           src={abstract}
           alt="Abstract Design"
@@ -33,9 +36,11 @@ const KaryakalapSection: React.FC = () => {
                 className="w-[140px] h-[140px] object-contain mx-auto mt-2"
               />
               <div className="p-2">
-                <p className="font-['Baloo_2'] font-bold text-[17px] text-[#5A1616] text-center whitespace-pre-line">
-                  {item.text}
-                </p>
+                <TranslatableText
+                  text={item.text}
+                  className="font-['Baloo_2'] font-bold text-[17px] text-[#5A1616] text-center whitespace-pre-line"
+                  as="p"
+                />
               </div>
             </div>
           ))}
@@ -49,9 +54,11 @@ const KaryakalapSection: React.FC = () => {
                 />
               </div>
               <div className="w-1/2 flex items-center justify-center p-4">
-                <p className="font-['Baloo_2'] font-bold text-[18px] mr-5 text-[#5A1616] text-center whitespace-pre-line">
-                  {items[2].text}
-                </p>
+                <TranslatableText
+                  text={items[2].text}
+                  className="font-['Baloo_2'] font-bold text-[18px] mr-5 text-[#5A1616] text-center whitespace-pre-line"
+                  as="p"
+                />
               </div>
             </div>
           </div>

@@ -1,4 +1,5 @@
 import React from 'react';
+import { TranslatableText } from './TranslatableText';
 import humareBareMein from '../assets/icons/Humare-bare-mein.png';
 import vibhag from '../assets/icons/Vibhag.png';
 import kalakarPanjikaran from '../assets/icons/KalakarPanjikaran.png';
@@ -33,7 +34,7 @@ const IconsSection: React.FC = () => {
                 className="font-['Baloo_2'] font-bold text-center text-[15px] whitespace-pre-line text-[#9C0505]"
                 style={{ marginTop: '-5px', lineHeight: '1.1' }}
               >
-                {icon.text}
+                <TranslatableText text={icon.text} />
               </p>
             </div>
           </div>

@@ -1,4 +1,5 @@
 import React from 'react';
+import { TranslatableText } from './TranslatableText';
 import abhilekhakaran from '../assets/icons/Abhilekhakaran.png';
 import shashnadesh from '../assets/icons/Shashnadesh.png';
 import nivida from '../assets/icons/Nivida.png';
@@ -8,9 +9,11 @@ const Others: React.FC = () => {
     return (
         <div>
             <div className="w-full px-4  flex flex-col items-center">
-                <h1 className="font-['Inter'] font-bold text-[24px] text-[#5A1616] text-center leading-tight">
-                    अन्य उपयोगी जानकारी
-                </h1>
+                <TranslatableText
+                    text="अन्य उपयोगी जानकारी"
+                    className="font-['Inter'] font-bold text-[24px] text-[#5A1616] text-center leading-tight"
+                    as="h1"
+                />
                 <img
                     src={abstract}
                     alt="Abstract Design"
@@ -31,7 +34,7 @@ const Others: React.FC = () => {
                                     className="font-['Baloo_2'] font-bold text-center text-[15px] text-[#9C0505]"
                                     style={{ marginTop: '-5px', lineHeight: '1.1' }}
                                 >
-                                    {item.text}
+                                    <TranslatableText text={item.text} />
                                 </p>
                             </div>
                         </div>

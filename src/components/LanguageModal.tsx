@@ -1,6 +1,7 @@
 import React from 'react';
 import { X } from 'lucide-react';
 import { supportedLanguages } from '../utils/languages';
+import { useLanguage } from '../contexts/LanguageContext';
 
 interface LanguageModalProps {
   isOpen: boolean;
@@ -10,6 +11,7 @@ interface LanguageModalProps {
 
 const LanguageModal: React.FC<LanguageModalProps> = ({ isOpen, onClose, onSelectLanguage }) => {
   if (!isOpen) return null;
+  const { currentLanguage } = useLanguage();
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center px-4">
@@ -34,8 +36,12 @@ const LanguageModal: React.FC<LanguageModalProps> = ({ isOpen, onClose, onSelect
               onClick={() => {
                 onSelectLanguage(lang.code);
                 onClose();
-              }}
-              className="flex items-center justify-center p-3 rounded-lg border border-gray-200 hover:border-[#903603] hover:bg-[#903603]/5 transition-colors"
+              }} 
+              className={`flex items-center justify-center p-3 rounded-lg border transition-colors ${
+                currentLanguage === lang.code 
+                  ? 'border-[#903603] bg-[#903603]/10 shadow-md' 
+                  : 'border-gray-200 hover:border-[#903603] hover:bg-[#903603]/5'
+              }`}
             >
               <span className="font-['Inter'] text-base text-[#903603] font-bold">
                 {lang.name}

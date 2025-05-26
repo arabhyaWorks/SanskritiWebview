@@ -24,7 +24,7 @@ const IconsSection: React.FC<IconsSectionProps> = ({ onAboutUsClick, onDepartmen
     { img: uttarPradesh, text: 'उत्तर प्रदेश की संरचना', key: 'up-structure' },
     { img: dirgha, text: 'दीर्घा', key: 'gallery' },
     { img: kalyankariYojnayen, text: 'कल्याणकारी योजनायें', key: 'welfare-schemes' },
-    { img: prekshagrihaBooking, text: 'प्रेक्षागृह\nबुकिंग', key: 'auditorium-booking' },
+    { img: prekshagrihaBooking, text: 'प्रेक्षागृह\nबुकिंग', key: 'auditorium-booking', url: 'https://artistdirectoryupculture.com/ebooking' },
     { img: nagrikCharter, text: 'नागरिक\nचार्टर', key: 'citizen-charter' },
   ];
 
@@ -35,7 +35,7 @@ const IconsSection: React.FC<IconsSectionProps> = ({ onAboutUsClick, onDepartmen
           <div key={index} className="flex flex-col items-center">
             <div 
               className="bg-white rounded-2xl shadow-lg pb-2 w-24 h-24 flex flex-col items-center cursor-pointer active:scale-95 transition-transform"
-              onClick={icon.onClick}
+              onClick={icon.url ? () => window.open(icon.url, '_blank') : icon.onClick}
             >
               <img src={icon.img} alt={icon.text} className="w-16 h-16" />
               <p

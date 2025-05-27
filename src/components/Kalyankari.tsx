@@ -3,8 +3,9 @@ import { ChevronLeft, ExternalLink, FileText } from 'lucide-react';
 import { TranslatableText } from './TranslatableText';
 import abstract from '../assets/abstract.png';
 import Footer from './Footer';
-import backgroundImage from '../assets/VibhgaBG.avif'; 
+import backgroundImage from '../assets/VibhgaBG.avif';
 import AdoptHeritage from './AdoptHeritage';
+import GovernmentSchemes from './GovernmentSchemes';
 
 interface KalyankariProps {
   onClose: () => void;
@@ -15,6 +16,7 @@ interface KalyankariProps {
 
 const Kalyankari: React.FC<KalyankariProps> = ({ onClose, onCulturalPartnerClick, onDirectorApplicationClick, onPensionSchemeClick }) => {
   const [showAdoptHeritage, setShowAdoptHeritage] = useState(false);
+  const [showGovernmentSchemes, setShowGovernmentSchemes] = useState(false);
 
   const schemes = [
     {
@@ -63,7 +65,10 @@ const Kalyankari: React.FC<KalyankariProps> = ({ onClose, onCulturalPartnerClick
       title: 'उत्तर प्रदेश गौरव सम्मान २०२१-२२', 
       url: 'https://artistdirectoryupculture.com/upcalture/gaurav-samman-form.pdf'
     },
-    { title: 'भारत सरकार की अनुदान की योजनायें' },
+    { 
+      title: 'भारत सरकार की अनुदान की योजनायें',
+      onClick: () => setShowGovernmentSchemes(true)
+    },
         { 
       title: 'उ0 प्र0 वृद्ध एवं विपन्न कलाकारों को आर्थिक सहायता - 2009', 
       url: 'https://upculture.up.nic.in/sites/default/files/documents/gomadical.pdf'
@@ -156,6 +161,9 @@ const Kalyankari: React.FC<KalyankariProps> = ({ onClose, onCulturalPartnerClick
       </div>
       {showAdoptHeritage && (
         <AdoptHeritage onClose={() => setShowAdoptHeritage(false)} />
+      )}
+      {showGovernmentSchemes && (
+        <GovernmentSchemes onClose={() => setShowGovernmentSchemes(false)} />
       )}
 
       <div className="mt-8">

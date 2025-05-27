@@ -1,35 +1,77 @@
-import React from 'react';
-import { ChevronLeft, ExternalLink, FileText, Star } from 'lucide-react';
+import React, { useState } from 'react';
+import { ChevronLeft, ExternalLink, FileText } from 'lucide-react';
 import { TranslatableText } from './TranslatableText';
 import abstract from '../assets/abstract.png';
 import Footer from './Footer';
-import backgroundImage from '../assets/VibhgaBG.avif';
+import backgroundImage from '../assets/VibhgaBG.avif'; 
+import AdoptHeritage from './AdoptHeritage';
 
 interface KalyankariProps {
   onClose: () => void;
+  onCulturalPartnerClick: () => void;
+  onDirectorApplicationClick: () => void;
+  onPensionSchemeClick: () => void;
 }
 
-const Kalyankari: React.FC<KalyankariProps> = ({ onClose }) => {
+const Kalyankari: React.FC<KalyankariProps> = ({ onClose, onCulturalPartnerClick, onDirectorApplicationClick, onPensionSchemeClick }) => {
+  const [showAdoptHeritage, setShowAdoptHeritage] = useState(false);
+
   const schemes = [
-    { title: 'गैर सरकारी संस्थाओं का पंजीकरण', isNew: true },
-    { title: 'भारतीय वायु सेना- अग्रिवीर वायु (सीनियर)/(एग्जिक्यूटिव) अधिसूचना/विज्ञापन', isNew: true },
-    { title: 'जैन पुरस्कारों हेतु आवेदन फॉर्म' },
-    { title: 'निदेशक पद हेतु आवेदन' },
-    { title: 'भजन मंडली पंजीकरण' },
-    { title: 'लोक कलाकार हेतु वाद्य यन्त्र अनुदान योजना' },
-    { title: 'कलाकारों का टर्म-मनदेय के संबंध में' },
-    { title: 'अडॉप्ट ए हेरिटेज योजना के अंतर्गत रूचि की अभिव्यक्ति हेतु आमंत्रण' },
-    { title: 'उ0 प्र0 वृद्ध एवं विपन्न कलाकारों की मासिक पेंशन योजना' },
-    { title: 'संत, महात्माओं,महापुरुषों आदि की प्रतिमा स्थापित किए जाने के संबंध में' },
-    { title: 'लोक कलाकार वाद्ययंत्र क्रय योजना' },
-    { title: 'उत्तर प्रदेश गौरव सम्मान २०२१-२२', details: { size: '246 केबी', format: 'पीडीएफ', language: 'हिन्दी' } },
-    { title: 'बेगम अख्तर पुरस्कार (आवेदन पत्र - नियमावली)' },
+    {
+      title: 'गैर सरकारी संस्थाओं का पंजीकरण',
+      isNew: true,
+      onClick: onCulturalPartnerClick
+    },
+    { 
+      title: 'भारतीय वायु सेना- अग्रिवीर वायु (सीनियर)/(एग्जिक्यूटिव) अधिसूचना/विज्ञापन', 
+      isNew: true,
+      url: 'https://upculture.up.nic.in/sites/default/files/2025-04/AV_Musician_Rally_01-2026_0.pdf'
+    },
+    { 
+      title: 'जैन पुरस्कारों हेतु आवेदन फॉर्म', 
+      url: 'https://upjvri.org.in/wp-content/uploads/2024/11/%E0%A4%A8%E0%A4%BE%E0%A4%AE%E0%A4%BE%E0%A4%82%E0%A4%95%E0%A4%A8-%E0%A4%AA%E0%A5%8D%E0%A4%B0%E0%A4%AA%E0%A4%A4%E0%A5%8D%E0%A4%B0-%E0%A4%AA%E0%A5%81%E0%A4%B0%E0%A4%B8%E0%A5%8D%E0%A4%95%E0%A4%BE%E0%A4%B0-2024_UPJVRI.pdf'
+    },
+    { 
+      title: 'संस्कृति विभाग, उत्तर प्रदेश की अधीनस्थ स्वायत्तशासी संस्थाओं में, निदेशक के पद पर नियुक्ति हेतु आवेदन-पत्र',
+      onClick: onDirectorApplicationClick
+    },
+    { 
+      title: 'लोक कलाकार हेतु वाद्य यन्त्र अनुदान योजना', 
+      url: 'https://upculture.up.nic.in/sites/default/files/documents/vadya%20yantra%20form%20new.pdf'
+    },
+    { 
+      title: 'कलाकारों का टर्म-मनदेय के संबंध में', 
+      url: 'https://upculture.up.nic.in/sites/default/files/documents/kalakar%20manday.pdf'
+    },
+    { 
+      title: 'अडॉप्ट ए हेरिटेज योजना के अंतर्गत रूचि की अभिव्यक्ति हेतु आमंत्रण',
+      onClick: () => setShowAdoptHeritage(true)
+    },
+    { 
+      title: 'उ0 प्र0 वृद्ध एवं विपन्न कलाकारों की मासिक पेंशन योजना',
+      onClick: onPensionSchemeClick
+    },
+    { 
+      title: 'संत, महात्माओं,महापुरुषों आदि की प्रतिमा स्थापित किए जाने के संबंध में', 
+      url: 'https://upculture.up.nic.in/sites/default/files/documents/murti%20nirman_merged.pdf'
+    },
+    { 
+      title: 'लोक कलाकार वाद्ययंत्र क्रय योजना', 
+      url: 'https://upculture.up.nic.in/sites/default/files/documents/vadya%20yantra%20form.pdf'
+    },
+    { 
+      title: 'उत्तर प्रदेश गौरव सम्मान २०२१-२२', 
+      url: 'https://artistdirectoryupculture.com/upcalture/gaurav-samman-form.pdf'
+    },
     { title: 'भारत सरकार की अनुदान की योजनायें' },
-    { title: 'उ0 प्र0 वृद्ध एवं विपन्न कलाकारों को आर्थिक सहायता - 2009', details: { size: '446 केबी', format: 'पीडीएफ', language: 'हिन्दी' } },
-    { title: 'कलाकार पंजीकरण पोर्टल' },
-    { title: 'समागार बुकिंग पोर्टल' },
-    { title: 'अवध महोत्सव 2023 हेतु आवेदन पत्र' },
-    { title: 'संस्कृति विभाग, उत्तर प्रदेश की अधीनस्थ स्वायत्तशासी संस्थाओं में, निदेशक के पद पर नियुक्ति हेतु आवेदन-पत्र' }
+        { 
+      title: 'उ0 प्र0 वृद्ध एवं विपन्न कलाकारों को आर्थिक सहायता - 2009', 
+      url: 'https://upculture.up.nic.in/sites/default/files/documents/gomadical.pdf'
+    },
+    { 
+      title: 'अवध महोत्सव 2023 हेतु आवेदन पत्र', 
+      url: 'https://upculture.up.nic.in/sites/default/files/documents/Form%20Awadh%20Mahotsav-2023.pdf'
+    }
   ];
 
   return (
@@ -70,26 +112,27 @@ const Kalyankari: React.FC<KalyankariProps> = ({ onClose }) => {
             {schemes.map((scheme, index) => (
               <div
                 key={index}
-                className="bg-white rounded-lg p-4 shadow hover:shadow-md transition-all border border-[#903603]/10 hover:border-[#903603]/30 group cursor-pointer"
+                className="bg-white rounded-lg px-3 py-4 shadow hover:shadow-md transition-all border border-[#903603]/10 hover:border-[#903603]/30 group cursor-pointer"
+                onClick={scheme.url ? () => window.open(scheme.url, '_blank') : scheme.onClick}
               >
                 <div className="flex items-start gap-3">
                   <div className="shrink-0">
-                    <FileText className="w-5 h-5 text-[#903603] mt-1" />
+                    <FileText className="w-5 h-5 text-[#903603]" />
                   </div>
-                  <div className="flex-grow">
+                  <div className="flex-grow min-w-0">
                     <div className="flex items-start gap-2">
                       <TranslatableText
                         text={scheme.title}
-                        className="text-[#5A1616] font-['Baloo_2'] font-bold group-hover:text-[#903603] transition-colors"
+                        className="text-[#5A1616] font-['Baloo_2'] text-sm font-bold group-hover:text-[#903603] transition-colors leading-tight break-words"
                       />
                       {scheme.isNew && (
-                        <div className="bg-red-500 text-white text-xs px-2 py-0.5 rounded-full font-bold uppercase tracking-wide">
+                        <div className="bg-red-500 text-white text-xs px-2 py-0.5 rounded-full font-bold uppercase tracking-wide shrink-0">
                           New
                         </div>
                       )}
                     </div>
                     {scheme.details && (
-                      <div className="flex items-center gap-3 mt-2 text-sm text-gray-500">
+                      <div className="flex flex-wrap items-center gap-x-3 gap-y-1 mt-2 text-xs text-gray-500">
                         <span>
                           <TranslatableText text={`आकार: ${scheme.details.size}`} />
                         </span>
@@ -104,13 +147,16 @@ const Kalyankari: React.FC<KalyankariProps> = ({ onClose }) => {
                       </div>
                     )}
                   </div>
-                  <ExternalLink className="w-4 h-4 text-[#903603] opacity-50 group-hover:opacity-100 transition-opacity mt-1" />
+                  <ExternalLink className="w-4 h-4 text-[#903603] opacity-50 group-hover:opacity-100 transition-opacity shrink-0 mt-1" />
                 </div>
               </div>
             ))}
           </div>
         </div>
       </div>
+      {showAdoptHeritage && (
+        <AdoptHeritage onClose={() => setShowAdoptHeritage(false)} />
+      )}
 
       <div className="mt-8">
         <Footer />

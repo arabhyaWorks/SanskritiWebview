@@ -6,10 +6,13 @@ import kalakarPanjikaran from '../assets/icons/KalakarPanjikaran.png';
 import sanskritikKaryakram from '../assets/icons/SanskritikKaryakram.png';
 import uttarPradesh from '../assets/icons/UttarPradesh.png';
 import dirgha from '../assets/icons/Dirgha.png';
+import CulturalPartner from './CulturalPartner';
 import kalyankariYojnayen from '../assets/icons/KalyankariYojnayen.png';
 import prekshagrihaBooking from '../assets/icons/PrekshagrihaBooking.png';
 import nagrikCharter from '../assets/icons/NagrikCharter.png';
 import Kalyankari from './Kalyankari';
+import DirectorApplications from './DirectorApplications';
+import PensionScheme from './PensionScheme';
 
 interface IconsSectionProps {
   onAboutUsClick: () => void;
@@ -18,6 +21,9 @@ interface IconsSectionProps {
 
 const IconsSection: React.FC<IconsSectionProps> = ({ onAboutUsClick, onDepartmentClick }) => {
   const [showKalyankari, setShowKalyankari] = useState(false);
+  const [showCulturalPartner, setShowCulturalPartner] = useState(false);
+  const [showDirectorApplications, setShowDirectorApplications] = useState(false);
+  const [showPensionScheme, setShowPensionScheme] = useState(false);
 
   const icons = [
     { img: humareBareMein, text: 'हमारे बारे में', key: 'about-us', onClick: onAboutUsClick, 'data-about-us': true },
@@ -52,7 +58,30 @@ const IconsSection: React.FC<IconsSectionProps> = ({ onAboutUsClick, onDepartmen
         ))}
       </div>
       {showKalyankari && (
-        <Kalyankari onClose={() => setShowKalyankari(false)} />
+        <Kalyankari 
+          onClose={() => setShowKalyankari(false)} 
+          onCulturalPartnerClick={() => {
+            setShowKalyankari(false);
+            setShowCulturalPartner(true);
+          }}
+          onDirectorApplicationClick={() => {
+            setShowKalyankari(false);
+            setShowDirectorApplications(true);
+          }}
+          onPensionSchemeClick={() => {
+            setShowKalyankari(false);
+            setShowPensionScheme(true);
+          }}
+        />
+      )}
+      {showCulturalPartner && (
+        <CulturalPartner onClose={() => setShowCulturalPartner(false)} />
+      )}
+      {showDirectorApplications && (
+        <DirectorApplications onClose={() => setShowDirectorApplications(false)} />
+      )}
+      {showPensionScheme && (
+        <PensionScheme onClose={() => setShowPensionScheme(false)} />
       )}
     </div>
   );

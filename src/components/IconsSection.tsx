@@ -6,6 +6,7 @@ import kalakarPanjikaran from '../assets/icons/KalakarPanjikaran.png';
 import sanskritikKaryakram from '../assets/icons/SanskritikKaryakram.png';
 import uttarPradesh from '../assets/icons/UttarPradesh.png';
 import dirgha from '../assets/icons/Dirgha.png';
+import Gallery from './Gallery';
 import CulturalPartner from './CulturalPartner';
 import kalyankariYojnayen from '../assets/icons/KalyankariYojnayen.png';
 import prekshagrihaBooking from '../assets/icons/PrekshagrihaBooking.png';
@@ -25,6 +26,7 @@ const IconsSection: React.FC<IconsSectionProps> = ({ onAboutUsClick, onDepartmen
   const [showCitizenCharter, setShowCitizenCharter] = useState(false);
   const [showCulturalPartner, setShowCulturalPartner] = useState(false);
   const [showDirectorApplications, setShowDirectorApplications] = useState(false);
+  const [showGallery, setShowGallery] = useState(false);
   const [showPensionScheme, setShowPensionScheme] = useState(false);
 
   const icons = [
@@ -32,8 +34,8 @@ const IconsSection: React.FC<IconsSectionProps> = ({ onAboutUsClick, onDepartmen
     { img: vibhag, text: 'विभाग', key: 'department', onClick: onDepartmentClick },
     { img: kalakarPanjikaran, text: 'कलाकार\nपंजीकरण', key: 'artist-registration' },
     { img: sanskritikKaryakram, text: 'सांस्कृतिक कार्यक्रम', key: 'cultural-program' },
-    { img: uttarPradesh, text: 'उत्तर प्रदेश की संरचना', key: 'up-structure' },
-    { img: dirgha, text: 'दीर्घा', key: 'gallery' },
+    { img: uttarPradesh, text: 'उत्तर प्रदेश की संरचना', key: 'up-structure', url: 'https://upculture.up.nic.in/sites/default/files/documents/Coffee-table-book-final-new-resize-cdr.pdf'  },
+    { img: dirgha, text: 'दीर्घा', key: 'gallery', onClick: () => setShowGallery(true) },
     { img: kalyankariYojnayen, text: 'कल्याणकारी योजनायें', key: 'welfare-schemes', onClick: () => setShowKalyankari(true) },
     { img: prekshagrihaBooking, text: 'प्रेक्षागृह\nबुकिंग', key: 'auditorium-booking', url: 'https://artistdirectoryupculture.com/ebooking' },
     { img: nagrikCharter, text: 'नागरिक\nचार्टर', key: 'citizen-charter', onClick: () => setShowCitizenCharter(true) },
@@ -84,6 +86,9 @@ const IconsSection: React.FC<IconsSectionProps> = ({ onAboutUsClick, onDepartmen
       )}
       {showPensionScheme && (
         <PensionScheme onClose={() => setShowPensionScheme(false)} />
+      )}
+      {showGallery && (
+        <Gallery onClose={() => setShowGallery(false)} />
       )}
       {showCitizenCharter && (
         <CitizenCharter onClose={() => setShowCitizenCharter(false)} />

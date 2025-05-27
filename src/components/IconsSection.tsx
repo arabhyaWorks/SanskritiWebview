@@ -9,6 +9,7 @@ import dirgha from '../assets/icons/Dirgha.png';
 import kalyankariYojnayen from '../assets/icons/KalyankariYojnayen.png';
 import prekshagrihaBooking from '../assets/icons/PrekshagrihaBooking.png';
 import nagrikCharter from '../assets/icons/NagrikCharter.png';
+import Kalyankari from './Kalyankari';
 
 interface IconsSectionProps {
   onAboutUsClick: () => void;
@@ -16,6 +17,8 @@ interface IconsSectionProps {
 }
 
 const IconsSection: React.FC<IconsSectionProps> = ({ onAboutUsClick, onDepartmentClick }) => {
+  const [showKalyankari, setShowKalyankari] = useState(false);
+
   const icons = [
     { img: humareBareMein, text: 'हमारे बारे में', key: 'about-us', onClick: onAboutUsClick, 'data-about-us': true },
     { img: vibhag, text: 'विभाग', key: 'department', onClick: onDepartmentClick },
@@ -23,7 +26,7 @@ const IconsSection: React.FC<IconsSectionProps> = ({ onAboutUsClick, onDepartmen
     { img: sanskritikKaryakram, text: 'सांस्कृतिक कार्यक्रम', key: 'cultural-program' },
     { img: uttarPradesh, text: 'उत्तर प्रदेश की संरचना', key: 'up-structure' },
     { img: dirgha, text: 'दीर्घा', key: 'gallery' },
-    { img: kalyankariYojnayen, text: 'कल्याणकारी योजनायें', key: 'welfare-schemes' },
+    { img: kalyankariYojnayen, text: 'कल्याणकारी योजनायें', key: 'welfare-schemes', onClick: () => setShowKalyankari(true) },
     { img: prekshagrihaBooking, text: 'प्रेक्षागृह\nबुकिंग', key: 'auditorium-booking', url: 'https://artistdirectoryupculture.com/ebooking' },
     { img: nagrikCharter, text: 'नागरिक\nचार्टर', key: 'citizen-charter' },
   ];
@@ -48,6 +51,9 @@ const IconsSection: React.FC<IconsSectionProps> = ({ onAboutUsClick, onDepartmen
           </div>
         ))}
       </div>
+      {showKalyankari && (
+        <Kalyankari onClose={() => setShowKalyankari(false)} />
+      )}
     </div>
   );
 };

@@ -79,7 +79,6 @@ const VideoCard: React.FC<VideoCardProps> = ({ item, playingVideo, setPlayingVid
 const Gallery: React.FC<GalleryProps> = ({ onClose }) => {
   const [activeTab, setActiveTab] = useState('brochure');
   const [searchQuery, setSearchQuery] = useState('');
-  const [selectedFilter, setSelectedFilter] = useState('all');
   const [playingVideo, setPlayingVideo] = useState<string | null>(null);
 
   const content = {
@@ -91,7 +90,40 @@ const Gallery: React.FC<GalleryProps> = ({ onClose }) => {
         size: '24.8 एमबी',
         format: 'पीडीएफ',
         language: 'हिन्दी'
+      },
+            {
+        title: 'राज्य संग्रहालय लखनऊ, उत्तर प्रदेश',
+        image: 'https://upculture.up.nic.in/sites/default/files/2023-04/state%20museum%20english.png',
+        pdfUrl: 'https://upculture.up.nic.in/sites/default/files/2023-04/state%20museum%20English.PDF',
+        size: '24.8 एमबी',
+        format: 'पीडीएफ',
+        language: 'इंगलिश'
+      },
+            {
+        title: 'राजकीय बौद्ध संग्रहालय, गोरखपुर',
+        image: 'https://upculture.up.nic.in/sites/default/files/2023-04/govt%20buddha%20museum%20eng.png',
+        pdfUrl: 'https://upculture.up.nic.in/sites/default/files/2023-04/Bauddha%20Museum%20Folder%2017-May-2023%2016-56-22.pdf',
+        size: '2.3 एमबी',
+        format: 'पीडीएफ',
+        language: 'इंगलिश'
+      },
+            {
+        title: 'राजकीय बौद्ध संग्रहालय, गोरखपुर',
+        image: 'https://upculture.up.nic.in/sites/default/files/2023-04/govt%20buddha%20museum%20hindi.png',
+        pdfUrl: 'https://upculture.up.nic.in/sites/default/files/2023-04/baudha%20museum%20hindi.pdf',
+        size: '3.7 एमबी',
+        format: 'पीडीएफ',
+        language: 'हिन्दी'
+      },
+            {
+        title: 'प्रख्यात स्वतंत्रता संग्राम सेनानी एवं उ0 प्र0 के पूर्व मुख्यमंत्री स्व. हेमवती नन्दन बहुगुणा जी की प्रतिमा का अनावरण',
+        image: 'https://upculture.up.nic.in/sites/default/files/inline-images/hemwati%20nandan%20bahuguna.JPG',
+        pdfUrl: 'https://upculture.up.nic.in/sites/default/files/documents/Hemwati%20Nanadan%20Brochure.pdf',
+        size: '19.4 एमबी',
+        format: 'पीडीएफ',
+        language: 'हिन्दी'
       }
+
     ],
     images: [
       {
@@ -193,9 +225,7 @@ const Gallery: React.FC<GalleryProps> = ({ onClose }) => {
   ];
 
   const filteredGalleries = galleries.filter(item =>
-    (selectedFilter === 'all' || item.tags.includes(selectedFilter)) &&
-    (item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-     item.tags.some(tag => tag.includes(searchQuery.toLowerCase())))
+    item.title.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   return (
@@ -234,30 +264,13 @@ const Gallery: React.FC<GalleryProps> = ({ onClose }) => {
           
           <div className="relative mb-4">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-[#8B4513]" />
-            <SlidersHorizontal className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-[#8B4513]" />
             <input
               type="text"
               placeholder="खोजें..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-10 pr-10 py-2.5 rounded-full bg-white/70 border-2 border-[#8B4513]/20 focus:border-[#8B4513] focus:outline-none focus:ring-2 focus:ring-[#8B4513]/20 transition-colors text-[#8B4513] placeholder-[#8B4513]/60"
+              className="w-full pl-10 pr-3 py-2.5 rounded-full bg-white/70 border-2 border-[#8B4513]/20 focus:border-[#8B4513] focus:outline-none focus:ring-2 focus:ring-[#8B4513]/20 transition-colors text-[#8B4513] placeholder-[#8B4513]/60"
             />
-          </div>
-
-          <div className="flex overflow-x-auto gap-2 mb-3 pb-1 hide-scrollbar">
-            {filters.map(filter => (
-              <button
-                key={filter.id}
-                onClick={() => setSelectedFilter(filter.id)}
-                className={`px-3 py-1.5 rounded-full text-sm whitespace-nowrap transition-all ${
-                  selectedFilter === filter.id
-                    ? 'bg-[#8B4513] text-white font-medium'
-                    : 'bg-[#8B4513]/10 text-[#8B4513] hover:bg-[#8B4513]/20'
-                }`}
-              >
-                <TranslatableText text={filter.label} />
-              </button>
-            ))}
           </div>
 
           <div className="flex overflow-x-auto gap-2 pb-2 mb-6 hide-scrollbar">
@@ -278,7 +291,11 @@ const Gallery: React.FC<GalleryProps> = ({ onClose }) => {
           </div>
 
           <div className="grid grid-cols-1 gap-4">
-            {content[activeTab as keyof typeof content].map((item, index) => {
+            {content[activeTab as keyof typeof content]
+              .filter(item => 
+                item.title.toLowerCase().includes(searchQuery.toLowerCase())
+              )
+              .map((item, index) => {
               if (item.type === 'video') {
                 return (
                   <VideoCard

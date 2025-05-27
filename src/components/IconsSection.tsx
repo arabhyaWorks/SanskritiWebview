@@ -11,6 +11,7 @@ import kalyankariYojnayen from '../assets/icons/KalyankariYojnayen.png';
 import prekshagrihaBooking from '../assets/icons/PrekshagrihaBooking.png';
 import nagrikCharter from '../assets/icons/NagrikCharter.png';
 import Kalyankari from './Kalyankari';
+import CitizenCharter from './CitizenCharter';
 import DirectorApplications from './DirectorApplications';
 import PensionScheme from './PensionScheme';
 
@@ -21,6 +22,7 @@ interface IconsSectionProps {
 
 const IconsSection: React.FC<IconsSectionProps> = ({ onAboutUsClick, onDepartmentClick }) => {
   const [showKalyankari, setShowKalyankari] = useState(false);
+  const [showCitizenCharter, setShowCitizenCharter] = useState(false);
   const [showCulturalPartner, setShowCulturalPartner] = useState(false);
   const [showDirectorApplications, setShowDirectorApplications] = useState(false);
   const [showPensionScheme, setShowPensionScheme] = useState(false);
@@ -34,7 +36,7 @@ const IconsSection: React.FC<IconsSectionProps> = ({ onAboutUsClick, onDepartmen
     { img: dirgha, text: 'दीर्घा', key: 'gallery' },
     { img: kalyankariYojnayen, text: 'कल्याणकारी योजनायें', key: 'welfare-schemes', onClick: () => setShowKalyankari(true) },
     { img: prekshagrihaBooking, text: 'प्रेक्षागृह\nबुकिंग', key: 'auditorium-booking', url: 'https://artistdirectoryupculture.com/ebooking' },
-    { img: nagrikCharter, text: 'नागरिक\nचार्टर', key: 'citizen-charter' },
+    { img: nagrikCharter, text: 'नागरिक\nचार्टर', key: 'citizen-charter', onClick: () => setShowCitizenCharter(true) },
   ];
 
   return (
@@ -82,6 +84,9 @@ const IconsSection: React.FC<IconsSectionProps> = ({ onAboutUsClick, onDepartmen
       )}
       {showPensionScheme && (
         <PensionScheme onClose={() => setShowPensionScheme(false)} />
+      )}
+      {showCitizenCharter && (
+        <CitizenCharter onClose={() => setShowCitizenCharter(false)} />
       )}
     </div>
   );

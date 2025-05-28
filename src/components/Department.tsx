@@ -9,6 +9,8 @@ import Museum from './Museum';
 import Archives from './Archives';
 import MusicDramaAcademy from './MusicDramaAcademy';
 import FineArtsAcademy from './FineArtsAcademy';
+import BhatkhadeInstitute from './BhatkhadeInstitute';
+import BhartenduAcademy from './BhartenduAcademy';
 import AyodhyaInstitute from './AyodhyaInstitute';
 import TribalFolkInstitute from './TribalFolkInstitute';
 import BuddhistInstitute from './BuddhistInstitute';
@@ -23,6 +25,8 @@ const Department: React.FC<DepartmentProps> = ({ onClose }) => {
   const [showArchives, setShowArchives] = useState(false);
   const [showMusicDrama, setShowMusicDrama] = useState(false);
   const [showFineArts, setShowFineArts] = useState(false);
+  const [showBhatkhande, setShowBhatkhande] = useState(false);
+  const [showBhartendu, setShowBhartendu] = useState(false);
   const [showAyodhya, setShowAyodhya] = useState(false);
   const [showTribalFolk, setShowTribalFolk] = useState(false);
   const [showBuddhistInstitute, setShowBuddhistInstitute] = useState(false);
@@ -86,6 +90,10 @@ const Department: React.FC<DepartmentProps> = ({ onClose }) => {
                     setShowArchives(true);
                   } else if (index === 5) {
                     setShowMusicDrama(true);
+                  } else if (index === 3) {
+                    setShowBhatkhande(true);
+                  } else if (index === 4) {
+                    setShowBhartendu(true);
                   } else if (index === 6) {
                     setShowFineArts(true);
                   } else if (index === 7) {
@@ -118,6 +126,8 @@ const Department: React.FC<DepartmentProps> = ({ onClose }) => {
       {showArchives && <Archives onClose={() => setShowArchives(false)} />}
       {showMusicDrama && <MusicDramaAcademy onClose={() => setShowMusicDrama(false)} />}
       {showFineArts && <FineArtsAcademy onClose={() => setShowFineArts(false)} />}
+      {showBhatkhande && <BhatkhadeInstitute onClose={() => setShowBhatkhande(false)} />}
+      {showBhartendu && <BhartenduAcademy onClose={() => setShowBhartendu(false)} />}
       {showAyodhya && <AyodhyaInstitute onClose={() => setShowAyodhya(false)} />}
       {showTribalFolk && <TribalFolkInstitute onClose={() => setShowTribalFolk(false)} />}
       {showBuddhistInstitute && <BuddhistInstitute onClose={() => setShowBuddhistInstitute(false)} />}

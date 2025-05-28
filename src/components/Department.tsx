@@ -14,6 +14,8 @@ import BhartenduAcademy from './BhartenduAcademy';
 import AyodhyaInstitute from './AyodhyaInstitute';
 import TribalFolkInstitute from './TribalFolkInstitute';
 import BuddhistInstitute from './BuddhistInstitute';
+import JainInstitute from './JainInstitute';
+import KathakInstitute from './KathakInstitute';
 
 interface DepartmentProps {
   onClose: () => void;
@@ -30,6 +32,8 @@ const Department: React.FC<DepartmentProps> = ({ onClose }) => {
   const [showAyodhya, setShowAyodhya] = useState(false);
   const [showTribalFolk, setShowTribalFolk] = useState(false);
   const [showBuddhistInstitute, setShowBuddhistInstitute] = useState(false);
+  const [showJainInstitute, setShowJainInstitute] = useState(false);
+  const [showKathakInstitute, setShowKathakInstitute] = useState(false);
 
   const departments = [
     'उ०प्र० राज्य पुरातत्व निदेशालय',
@@ -43,7 +47,7 @@ const Department: React.FC<DepartmentProps> = ({ onClose }) => {
     'जनजाति एवं लोक कला संस्कृति संस्थान',
     'उ०प्र० जैन विद्या शोध संस्थान',
     'आचार्य नरेन्द्र देव अन्तर्राष्ट्रीय बौध विधा शोध संस्थान',
-    'बिरजू महाराज कथक संस्थान',
+    'राष्ट्रीय कथक संस्थान',
   ];
 
   return (
@@ -102,6 +106,10 @@ const Department: React.FC<DepartmentProps> = ({ onClose }) => {
                     setShowTribalFolk(true);
                   } else if (index === 10) {
                     setShowBuddhistInstitute(true);
+                  } else if (index === 9) {
+                    setShowJainInstitute(true);
+                  } else if (index === 11) {
+                    setShowKathakInstitute(true);
                   }
                 }}
               >
@@ -131,6 +139,8 @@ const Department: React.FC<DepartmentProps> = ({ onClose }) => {
       {showAyodhya && <AyodhyaInstitute onClose={() => setShowAyodhya(false)} />}
       {showTribalFolk && <TribalFolkInstitute onClose={() => setShowTribalFolk(false)} />}
       {showBuddhistInstitute && <BuddhistInstitute onClose={() => setShowBuddhistInstitute(false)} />}
+      {showJainInstitute && <JainInstitute onClose={() => setShowJainInstitute(false)} />}
+      {showKathakInstitute && <KathakInstitute onClose={() => setShowKathakInstitute(false)} />}
 
       <div className="mt-8">
         <Footer />

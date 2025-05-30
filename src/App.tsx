@@ -18,6 +18,7 @@ import { LanguageProvider } from './contexts/LanguageContext';
 import AboutUs from './components/AboutUs';
 import Contact from './components/Contact';
 import Who from './components/Who';
+import Artists from './components/Artists';
 
 function App() {
   const [showAboutUs, setShowAboutUs] = useState(false);
@@ -26,6 +27,7 @@ function App() {
   const [showWho, setShowWho] = useState(false);
   const [showDepartment, setShowDepartment] = useState(false);
   const [showEvents, setShowEvents] = useState(false);
+  const [showArtists, setShowArtists] = useState(false);
 
   return (
     <LanguageProvider>
@@ -60,6 +62,7 @@ function App() {
           <BottomNav 
             activeTab="home"
             onEventsClick={() => setShowEvents(true)} 
+            onProfileClick={() => setShowArtists(true)}
           />
           {showAboutUs && (
             <AboutUs 
@@ -92,6 +95,9 @@ function App() {
           )}
           {showEvents && (
             <Events onClose={() => setShowEvents(false)} />
+          )}
+          {showArtists && (
+            <Artists onClose={() => setShowArtists(false)} />
           )}
         </div>
         <div className="hidden sm:block fixed inset-0 flex items-center justify-center bg-gray-100">

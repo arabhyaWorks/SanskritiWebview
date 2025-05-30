@@ -2,6 +2,8 @@ import React from 'react';
 import { useState } from 'react';
 import bgImg from './assets/bgImg.png';
 import Header from './components/Header';
+import Events from './components/Events';
+import BottomNav from './components/BottomNav';
 import Department from './components/Department';
 import OrgStructure from './components/OrgStructure';
 import Banner from './components/Banner';
@@ -23,6 +25,7 @@ function App() {
   const [showOrgStructure, setShowOrgStructure] = useState(false);
   const [showWho, setShowWho] = useState(false);
   const [showDepartment, setShowDepartment] = useState(false);
+  const [showEvents, setShowEvents] = useState(false);
 
   return (
     <LanguageProvider>
@@ -41,7 +44,7 @@ function App() {
             zIndex: -1
           }}
         />
-        <div className="relative flex flex-col">
+        <div className="relative flex flex-col pb-32">
           <Header />
           <Banner />
           <CultureSection />
@@ -54,6 +57,10 @@ function App() {
           <KaryakalapSection />
           <VideoSection />
           <Footer />
+          <BottomNav 
+            activeTab="home"
+            onEventsClick={() => setShowEvents(true)} 
+          />
           {showAboutUs && (
             <AboutUs 
               onClose={() => setShowAboutUs(false)}
@@ -82,6 +89,9 @@ function App() {
           )}
           {showDepartment && (
             <Department onClose={() => setShowDepartment(false)} />
+          )}
+          {showEvents && (
+            <Events onClose={() => setShowEvents(false)} />
           )}
         </div>
         <div className="hidden sm:block fixed inset-0 flex items-center justify-center bg-gray-100">

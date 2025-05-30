@@ -4,7 +4,7 @@ import upLogo from '../assets/footer/upLogo.svg';
 
 const Footer: React.FC = () => {
   return (
-    <div className="relative w-full mt-8 bg-white">
+    <div className="relative w-full mt-8 mb-20 bg-white">
 
       <div className="absolute inset-0 flex flex-col items-center pt-4">
         <img 

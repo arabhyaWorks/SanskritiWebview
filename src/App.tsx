@@ -1,7 +1,9 @@
 import React from 'react';
 import { useState } from 'react';
+import { Routes, Route, useNavigate } from 'react-router-dom';
 import bgImg from './assets/bgImg.png';
 import Header from './components/Header';
+import PrivacyPolicy from './components/PrivacyPolicy';
 import Events from './components/Events';
 import BottomNav from './components/BottomNav';
 import Department from './components/Department';
@@ -21,6 +23,7 @@ import Who from './components/Who';
 import Artists from './components/Artists';
 
 function App() {
+  const navigate = useNavigate();
   const [showAboutUs, setShowAboutUs] = useState(false);
   const [showContact, setShowContact] = useState(false);
   const [showOrgStructure, setShowOrgStructure] = useState(false);
@@ -31,6 +34,9 @@ function App() {
 
   return (
     <LanguageProvider>
+      <Routes>
+        <Route path="/privacy-policy" element={<PrivacyPolicy onClose={() => navigate('/')} />} />
+        <Route path="/" element={
       <div 
         className="min-h-screen w-full sm:hidden relative"
         style={{
@@ -61,6 +67,7 @@ function App() {
           <Footer />
           <BottomNav 
             activeTab="home"
+            onPrivacyPolicyClick={() => navigate('/privacy-policy')}
             onEventsClick={() => setShowEvents(true)} 
             onProfileClick={() => setShowArtists(true)}
           />
@@ -103,7 +110,8 @@ function App() {
         <div className="hidden sm:block fixed inset-0 flex items-center justify-center bg-gray-100">
           <p className="text-gray-500 text-lg">This experience is designed for mobile devices only</p>
         </div>
-      </div>
+      </div>} />
+      </Routes>
     </LanguageProvider>
   );
 }

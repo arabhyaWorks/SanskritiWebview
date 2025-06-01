@@ -1,16 +1,17 @@
 import React from 'react';
 import { useState } from 'react';
-import { Home, Calendar, User } from 'lucide-react';
+import { Home, Calendar, User, Shield } from 'lucide-react';
 import { TranslatableText } from './TranslatableText';
 
 interface BottomNavProps {
   activeTab?: string;
   onHomeClick?: () => void;
+  onPrivacyPolicyClick?: () => void;
   onEventsClick: () => void;
   onProfileClick?: () => void;
 }
 
-const BottomNav: React.FC<BottomNavProps> = ({ activeTab = 'home', onHomeClick, onEventsClick, onProfileClick }) => {
+const BottomNav: React.FC<BottomNavProps> = ({ activeTab = 'home', onHomeClick, onPrivacyPolicyClick, onEventsClick, onProfileClick }) => {
   return (
     <div className="fixed bottom-0 left-0 right-0 bg-white/80 backdrop-blur-sm border-t border-[#903603]/10 z-50">
       <div className="flex items-center justify-around p-2 max-w-lg mx-auto">
@@ -26,6 +27,22 @@ const BottomNav: React.FC<BottomNavProps> = ({ activeTab = 'home', onHomeClick, 
           <Home className="w-6 h-6" />
           <TranslatableText 
             text="होम"
+            className="text-xs font-medium"
+          />
+        </button>
+        
+        <button 
+          onClick={onPrivacyPolicyClick}
+          className={`relative flex flex-col items-center gap-1 p-2 text-[#903603] active:scale-95 transition-all ${
+            activeTab === 'privacy' ? 'text-[#903603]' : 'text-[#903603]/60'
+          }`}
+        >
+          {activeTab === 'privacy' && (
+            <div className="absolute -top-1 w-1.5 h-1.5 rounded-full bg-[#903603] animate-bounce" />
+          )}
+          <Shield className="w-6 h-6" />
+          <TranslatableText 
+            text="Privacy"
             className="text-xs font-medium"
           />
         </button>

@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { ChevronLeft, Search, Filter, MapPin, Phone, Mail, ChevronDown, UserPlus } from 'lucide-react';
+import { ChevronLeft, Search, Filter, MapPin, UserPlus } from 'lucide-react';
 import { TranslatableText } from './TranslatableText';
 import abstract from '../assets/abstract.png';
 import Footer from './Footer';
 import BottomNav from './BottomNav';
 import backgroundImage from '../assets/VibhgaBG.avif';
+import ArtistLogin from './ArtistLogin';
 
 interface FilterOption {
   label: string;
@@ -17,6 +18,7 @@ interface ArtistsProps {
 
 const Artists: React.FC<ArtistsProps> = ({ onClose }) => {
   const [searchQuery, setSearchQuery] = useState('');
+  const [showLogin, setShowLogin] = useState(false);
   const [showFilters, setShowFilters] = useState(false);
   const [selectedGrade, setSelectedGrade] = useState<string>('');
   const [selectedDistrict, setSelectedDistrict] = useState<string>('');
@@ -153,9 +155,7 @@ const Artists: React.FC<ArtistsProps> = ({ onClose }) => {
             </div>
           </div>
           <button
-            onClick={() => {
-              // Handle artist registration
-            }}
+            onClick={() => setShowLogin(true)}
             className="bg-[#903603] text-white px-4 py-2 rounded-lg hover:bg-[#5A1616] transition-colors text-sm font-medium flex items-center gap-2"
           >
             <UserPlus className="w-4 h-4" />
@@ -307,6 +307,9 @@ const Artists: React.FC<ArtistsProps> = ({ onClose }) => {
         onHomeClick={onClose}
         onEventsClick={() => {}}
       />
+      {showLogin && (
+        <ArtistLogin onClose={() => setShowLogin(false)} />
+      )}
     </div>
   );
 };

@@ -101,7 +101,7 @@ const ArtistLogin: React.FC<ArtistLoginProps> = ({ onClose }) => {
                   <TranslatableText text="मोबाइल नंबर" />
                 </label>
                 <div className="relative">
-                  <span className="absolute left-4 top-1/2 -translate-y-1/2 text-[#903603] font-medium">+91</span>
+                  <span className="absolute left-4 top-1/2 -translate-y-1/2 text-[#903603] font-semibold items-center">+91</span>
                   <input
                     type="tel"
                     value={mobile}

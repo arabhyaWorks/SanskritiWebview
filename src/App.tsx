@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import bgImg from './assets/bgImg.png';
 import Header from './components/Header';
+import ArtistHome from './components/ArtistHome';
 import PrivacyPolicy from './components/PrivacyPolicy';
 import Events from './components/Events';
 import BottomNav from './components/BottomNav';
@@ -36,6 +37,7 @@ function App() {
     <LanguageProvider>
       <Routes>
         <Route path="/privacy-policy" element={<PrivacyPolicy onClose={() => navigate('/')} />} />
+        <Route path="/artisthome" element={<ArtistHome />} />
         <Route path="/" element={
       <div 
         className="min-h-screen w-full sm:hidden relative"

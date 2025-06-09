@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { ChevronLeft, Phone, ArrowRight } from 'lucide-react';
 import { TranslatableText } from './TranslatableText';
 import { loginArtist } from '../lib/api';
+import { useNavigate } from 'react-router-dom';
 import abstract from '../assets/abstract.png';
 import ArtistRegistration from './ArtistRegistration';
 import backgroundImage from '../assets/VibhgaBG.avif';
@@ -11,6 +12,7 @@ interface ArtistLoginProps {
 }
 
 const ArtistLogin: React.FC<ArtistLoginProps> = ({ onClose }) => {
+  const navigate = useNavigate();
   const [mobile, setMobile] = useState('');
   const [otp, setOtp] = useState('');
   const [isOtpSent, setIsOtpSent] = useState(false);
@@ -26,6 +28,8 @@ const ArtistLogin: React.FC<ArtistLoginProps> = ({ onClose }) => {
     try {
       const response = await loginArtist(mobile);
       if (response.status === 1) {
+        localStorage.setItem('artistId', response.data.id);
+        localStorage.setItem('artistMobile', response.data.mobile);
         setStoredOtp(response.data.mobile_otp);
         setIsOtpSent(true);
         setError('');
@@ -39,9 +43,7 @@ const ArtistLogin: React.FC<ArtistLoginProps> = ({ onClose }) => {
 
   const handleVerifyOtp = () => {
     if (otp === storedOtp) {
-      localStorage.setItem('artistId', 'true');
-      localStorage.setItem('artistMobile', mobile);
-      setShowRegistration(true);
+      navigate('/artisthome');
     } else {
       setError('गलत OTP। कृपया पुनः प्रयास करें।');
     }
@@ -101,7 +103,7 @@ const ArtistLogin: React.FC<ArtistLoginProps> = ({ onClose }) => {
                   <TranslatableText text="मोबाइल नंबर" />
                 </label>
                 <div className="relative">
-                  <span className="absolute left-4 top-1/2 -translate-y-1/2 text-[#903603] font-semibold items-center">+91</span>
+                  <span className="absolute left-4 top-1/2 -translate-y-1/2 text-[#903603] font-medium">+91</span>
                   <input
                     type="tel"
                     value={mobile}

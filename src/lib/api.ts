@@ -1,4 +1,4 @@
-const API_BASE_URL = '/api';
+const API_BASE_URL = 'https://upsanskriti.com/';
 const API_TOKEN = 'cultureapisanindiatoken';
 
 export async function loginArtist(mobile: string) {

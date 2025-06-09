@@ -19,9 +19,12 @@ import PensionScheme from './PensionScheme';
 interface IconsSectionProps {
   onAboutUsClick: () => void;
   onDepartmentClick: () => void;
+  onProfileClick: () => void;
+  onEventsClick:() => void; 
+  
 }
 
-const IconsSection: React.FC<IconsSectionProps> = ({ onAboutUsClick, onDepartmentClick }) => {
+const IconsSection: React.FC<IconsSectionProps> = ({ onAboutUsClick, onDepartmentClick, onProfileClick, onEventsClick }) => {
   const [showKalyankari, setShowKalyankari] = useState(false);
   const [showCitizenCharter, setShowCitizenCharter] = useState(false);
   const [showCulturalPartner, setShowCulturalPartner] = useState(false);
@@ -32,8 +35,8 @@ const IconsSection: React.FC<IconsSectionProps> = ({ onAboutUsClick, onDepartmen
   const icons = [
     { img: humareBareMein, text: 'हमारे बारे में', key: 'about-us', onClick: onAboutUsClick, 'data-about-us': true },
     { img: vibhag, text: 'विभाग', key: 'department', onClick: onDepartmentClick },
-    { img: kalakarPanjikaran, text: 'कलाकार\nपंजीकरण', key: 'artist-registration' },
-    { img: sanskritikKaryakram, text: 'सांस्कृतिक कार्यक्रम', key: 'cultural-program' },
+    { img: kalakarPanjikaran, text: 'कलाकार\nपंजीकरण', key: 'artist-registration' , onClick:onProfileClick },
+    { img: sanskritikKaryakram, text: 'सांस्कृतिक कार्यक्रम', key: 'cultural-program', onClick:onEventsClick},
     { img: uttarPradesh, text: 'उत्तर प्रदेश की संरचना', key: 'up-structure', url: 'https://upculture.up.nic.in/sites/default/files/documents/Coffee-table-book-final-new-resize-cdr.pdf'  },
     { img: dirgha, text: 'दीर्घा', key: 'gallery', onClick: () => setShowGallery(true) },
     { img: kalyankariYojnayen, text: 'कल्याणकारी योजनायें', key: 'welfare-schemes', onClick: () => setShowKalyankari(true) },

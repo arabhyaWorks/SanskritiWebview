@@ -61,6 +61,8 @@ function App() {
           <IconsSection 
             onAboutUsClick={() => setShowAboutUs(true)} 
             onDepartmentClick={() => setShowDepartment(true)}
+            onProfileClick={() => setShowArtists(true)}
+            onEventsClick={() => setShowEvents(true)} 
           />
           <PanjikaranSection />
           <Others />

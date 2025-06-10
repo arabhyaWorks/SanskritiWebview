@@ -34,3 +34,36 @@ export async function loginArtist(mobile: string) {
     throw error;
   }
 }
+
+
+export async function fetchEventList() {
+  try {
+    const response = await fetch(`${API_BASE_URL}app/event-list`, {
+      method: 'POST',  
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ token: API_TOKEN }),
+    });
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('Error fetching events:', error);
+    throw error;
+  }
+}
+
+export async function fetchEventDetails(event_id: string) {
+  try {
+    const response = await fetch(`${API_BASE_URL}app/event-details`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ token: API_TOKEN, event_id }),
+    });
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('Error fetching event details:', error);
+    throw error;
+  }
+}

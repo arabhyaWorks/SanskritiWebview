@@ -36,10 +36,10 @@ const Department: React.FC<DepartmentProps> = ({ onClose }) => {
   const [showKathakInstitute, setShowKathakInstitute] = useState(false);
 
   const departments = [
+    'भातखण्डे संस्कृति विश्वविद्यालय',
     'उ०प्र० राज्य पुरातत्व निदेशालय',
     'उ०प्र० संग्रहालय निदेशालय',
     'उ०प्र० राजकीय अभिलेखागार',
-    'भातखण्डे संगीत संस्थान',
     'भारतेन्दु नाट्य अकादमी',
     'संगीत नाटक अकादमी',
     'ललित कला अकादमी',

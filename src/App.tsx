@@ -25,6 +25,7 @@ import Artists from './components/Artists';
 
 function App() {
   const navigate = useNavigate();
+  
   const [showAboutUs, setShowAboutUs] = useState(false);
   const [showContact, setShowContact] = useState(false);
   const [showOrgStructure, setShowOrgStructure] = useState(false);
@@ -38,6 +39,16 @@ function App() {
       <Routes>
         <Route path="/privacy-policy" element={<PrivacyPolicy onClose={() => navigate('/')} />} />
         <Route path="/artisthome" element={<ArtistHome />} />
+
+         {/* Direct Navigation Pages instead of modals */}
+        <Route path="/about-us" element={<AboutUs onClose={() => navigate('/')} onContactClick={() => navigate('/contact')} onOrgStructureClick={() => navigate('/org-structure')} onWhoClick={() => navigate('/who')} />} />
+        <Route path="/contact" element={<Contact onClose={() => navigate('/')} />} />
+        <Route path="/org-structure" element={<OrgStructure onClose={() => navigate('/')} />} />
+        <Route path="/who" element={<Who onClose={() => navigate('/')} />} />
+        <Route path="/department" element={<Department onClose={() => navigate('/')} />} />
+        <Route path="/events" element={<Events onClose={() => navigate('/')} />} />
+        <Route path="/artists" element={<Artists onClose={() => navigate('/')} />} />
+
         <Route path="/" element={
       <div 
         className="min-h-screen w-full sm:hidden relative"
@@ -58,36 +69,33 @@ function App() {
           <Header />
           <Banner />
           <CultureSection />
-          <IconsSection 
-            onAboutUsClick={() => setShowAboutUs(true)} 
-            onDepartmentClick={() => setShowDepartment(true)}
-            onProfileClick={() => setShowArtists(true)}
-            onEventsClick={() => setShowEvents(true)} 
-          />
+         <IconsSection 
+                onAboutUsClick={() => navigate('/about-us')}
+                onDepartmentClick={() => navigate('/department')}
+                onProfileClick={() => navigate('/artists')}
+                onEventsClick={() => navigate('/events')}
+         />
           <PanjikaranSection />
           <Others />
           <KaryakalapSection />
           <VideoSection />
           <Footer />
           <BottomNav 
-            activeTab="home"
-            onPrivacyPolicyClick={() => navigate('/privacy-policy')}
-            onEventsClick={() => setShowEvents(true)} 
-            onProfileClick={() => setShowArtists(true)}
+            
           />
           {showAboutUs && (
             <AboutUs 
               onClose={() => setShowAboutUs(false)}
               onContactClick={() => {
-                setShowAboutUs(false);
+                //setShowAboutUs(false);
                 setShowContact(true);
               }}
               onOrgStructureClick={() => {
-                setShowAboutUs(false);
+                //setShowAboutUs(false);
                 setShowOrgStructure(true);
               }}
               onWhoClick={() => {
-                setShowAboutUs(false);
+                //setShowAboutUs(false);
                 setShowWho(true);
               }}
             />

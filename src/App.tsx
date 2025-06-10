@@ -22,6 +22,7 @@ import AboutUs from './components/AboutUs';
 import Contact from './components/Contact';
 import Who from './components/Who';
 import Artists from './components/Artists';
+import ArtistRegistration from './components/ArtistRegistration';
 
 function App() {
   const navigate = useNavigate();
@@ -38,6 +39,9 @@ function App() {
       <Routes>
         <Route path="/privacy-policy" element={<PrivacyPolicy onClose={() => navigate('/')} />} />
         <Route path="/artisthome" element={<ArtistHome />} />
+        <Route path="/artist/profile" element={<ArtistRegistration onClose={function (): void {
+          throw new Error('Function not implemented.');
+        } } />} />
         <Route path="/" element={
       <div 
         className="min-h-screen w-full sm:hidden relative"

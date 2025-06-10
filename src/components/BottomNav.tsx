@@ -30,7 +30,7 @@ const BottomNav: React.FC<BottomNavProps> = ({ activeTab = 'home', onHomeClick, 
             className="text-xs font-medium"
           />
         </button>
-        
+        {/*
         <button 
           onClick={onPrivacyPolicyClick}
           className={`relative flex flex-col items-center gap-1 p-2 text-[#903603] active:scale-95 transition-all ${
@@ -45,7 +45,7 @@ const BottomNav: React.FC<BottomNavProps> = ({ activeTab = 'home', onHomeClick, 
             text="Privacy"
             className="text-xs font-medium"
           />
-        </button>
+        </button>*/}
         
         <button 
           onClick={() => {

@@ -16,10 +16,12 @@ interface BankDetailsProps {
   onBack: () => void;
 }
 
-const BankDetails: React.FC<BankDetailsProps> = ({ formData, onChange, onNext, onBack }) => {
-  const handleSubmit = (e: React.FormEvent) => {
+const BankDetails: React.FC<BankDetailsProps> = ({ formData, onChange, onBack }) => {
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    onNext();
+    // TODO: Implement form submission
+    console.log('Form submitted:', formData);
   };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -30,19 +32,22 @@ const BankDetails: React.FC<BankDetailsProps> = ({ formData, onChange, onNext, o
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
-      <div className="bg-white rounded-xl p-6 shadow-lg">
-        <h2 className="text-xl font-bold text-[#903603] mb-4 font-['Baloo_2'] border-b border-[#903603]/10 pb-4">
+      <div className="relative bg-white rounded-xl p-6 shadow-lg ">
+      <div className=' border p-6 rounded-xl border-black'>  
+        <div className='border border-black rounded-sm p-2 -top-0 mt-2 absolute  bg-white'>
+        <h2 className="text-xl font-bold text-[#903603] font-['Baloo_2'] border border-[#903603]/10 ">
           <TranslatableText text="Artist's Bank Details" />
         </h2>
+        </div>
 
-        <div className="text-red-500 mb-6 text-sm font-medium">
+        <div className="text-red-500 mb-6  mt-4 text-sm font-medium">
           <TranslatableText text="कृपया बैंकिंग विवरण सावधानी से भरें। किसी भी गलती के लिए आवेदक पूरी तरह से जिम्मेदार होगा।" />
           <br />
           <TranslatableText text="Note: Please fill banking details carefully. Applicant will be completely responsible in case of any mistake." />
         </div>
 
         <div className="space-y-4">
-          <div className="grid grid-cols-2 gap-4">
+          
             <div>
               <label className="block mb-2 text-[#903603] font-bold">
                 <TranslatableText text="खाता धारक का नाम/Account Holder Name" />
@@ -53,6 +58,7 @@ const BankDetails: React.FC<BankDetailsProps> = ({ formData, onChange, onNext, o
                 value={formData.accountHolderName}
                 onChange={(e) => onChange('accountHolderName', e.target.value)}
                 className="w-full p-3 border border-[#903603]/20 rounded-lg focus:outline-none focus:border-[#903603] bg-white/80"
+                placeholder='Account Holder Name'
                 required
               />
             </div>
@@ -66,12 +72,13 @@ const BankDetails: React.FC<BankDetailsProps> = ({ formData, onChange, onNext, o
                 value={formData.accountNumber}
                 onChange={(e) => onChange('accountNumber', e.target.value)}
                 className="w-full p-3 border border-[#903603]/20 rounded-lg focus:outline-none focus:border-[#903603] bg-white/80"
+                placeholder='Account Number'
                 required
               />
             </div>
-          </div>
+          
 
-          <div className="grid grid-cols-2 gap-4">
+          
             <div>
               <label className="block mb-2 text-[#903603] font-bold">
                 <TranslatableText text="खाता संख्या की पुष्टि करें/Confirm Account Number" />
@@ -82,6 +89,7 @@ const BankDetails: React.FC<BankDetailsProps> = ({ formData, onChange, onNext, o
                 value={formData.confirmAccountNumber}
                 onChange={(e) => onChange('confirmAccountNumber', e.target.value)}
                 className="w-full p-3 border border-[#903603]/20 rounded-lg focus:outline-none focus:border-[#903603] bg-white/80"
+                placeholder='Confirm Account No.'
                 required
               />
             </div>
@@ -95,12 +103,13 @@ const BankDetails: React.FC<BankDetailsProps> = ({ formData, onChange, onNext, o
                 value={formData.ifscCode}
                 onChange={(e) => onChange('ifscCode', e.target.value)}
                 className="w-full p-3 border border-[#903603]/20 rounded-lg focus:outline-none focus:border-[#903603] bg-white/80"
+                placeholder='IFSC CODE'
                 required
               />
             </div>
-          </div>
+          
 
-          <div className="grid grid-cols-2 gap-4">
+          
             <div>
               <label className="block mb-2 text-[#903603] font-bold">
                 <TranslatableText text="बैंक का नाम/Bank Name" />
@@ -111,6 +120,7 @@ const BankDetails: React.FC<BankDetailsProps> = ({ formData, onChange, onNext, o
                 value={formData.bankName}
                 onChange={(e) => onChange('bankName', e.target.value)}
                 className="w-full p-3 border border-[#903603]/20 rounded-lg focus:outline-none focus:border-[#903603] bg-white/80"
+                placeholder='Bank Name'
                 required
               />
             </div>
@@ -124,10 +134,11 @@ const BankDetails: React.FC<BankDetailsProps> = ({ formData, onChange, onNext, o
                 value={formData.branchName}
                 onChange={(e) => onChange('branchName', e.target.value)}
                 className="w-full p-3 border border-[#903603]/20 rounded-lg focus:outline-none focus:border-[#903603] bg-white/80"
+                placeholder='Branch Name'
                 required
               />
             </div>
-          </div>
+          
 
           <div>
             <label className="block mb-2 text-[#903603] font-bold">
@@ -138,12 +149,16 @@ const BankDetails: React.FC<BankDetailsProps> = ({ formData, onChange, onNext, o
               type="file"
               onChange={handleFileChange}
               accept="image/*,.pdf"
-              className="w-full p-3 border border-[#903603]/20 rounded-lg focus:outline-none focus:border-[#903603] bg-white/80"
+              className="w-full  border border-[#903603]/20 rounded-lg focus:outline-none focus:border-[#903603] bg-white/80"
               required
             />
+            <span className="text-red-500 text-sm">
+              कृपया 1 MB से कम आकार की प्रोफ़ाइल फोटो अपलोड करें.
+            </span>
           </div>
         </div>
       </div>
+    </div>
 
       <div className="flex justify-between">
         <button
@@ -155,9 +170,10 @@ const BankDetails: React.FC<BankDetailsProps> = ({ formData, onChange, onNext, o
         </button>
         <button
           type="submit"
+          onClick={handleSubmit}
           className="px-6 py-3 bg-[#903603] text-white rounded-lg hover:bg-[#5A1616] transition-colors"
         >
-          <TranslatableText text="सहेजें और आगे बढ़ें/Save and Next" />
+          <TranslatableText text="Submit" />
         </button>
       </div>
     </form>

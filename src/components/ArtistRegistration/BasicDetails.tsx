@@ -14,25 +14,28 @@ interface BasicDetailsProps {
     pinCode: string;
     city: string;
     state: string;
+    adhaarNo: string;
+    panNumber: string;
+    imageUrl: string;
+    noOfPerson: string;
   };
   onChange: (field: string, value: string) => void;
   onNext: () => void;
 }
 
 const BasicDetails: React.FC<BasicDetailsProps> = ({ formData, onChange, onNext }) => {
+  
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     onNext();
   };
-
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
       <div className="bg-white/80 backdrop-blur-sm rounded-xl p-6 border border-[#5A1616]/10">
-        <h2 className="text-2xl font-bold text-[#903603] mb-8 font-['Baloo_2'] text-center">
+        <div className="space-y-4 p-6 rounded-xl border border-black">
+          <h2 className="text-xl absolute bg-white mt-2 p-2 -top-0 font-bold text-[#903603] border border-black rounded-sm mb-8 font-['Baloo_2'] text-center">
           <TranslatableText text="Artist's Basic Information" />
         </h2>
-
-        <div className="space-y-4">
           <div>
             <label className="block mb-3 text-[#5A1616] font-bold text-lg">
               <TranslatableText text="Individual OR Group/Mandal/Samooh/Organization" />
@@ -59,14 +62,29 @@ const BasicDetails: React.FC<BasicDetailsProps> = ({ formData, onChange, onNext 
                   onChange={(e) => onChange('type', e.target.value)}
                   className="mr-3"
                 />
+              
                 <TranslatableText text="समूह/मंडल/समूह/संगठन/Group/Mandal/Samooh/Organization" />
               </label>
             </div>
           </div>
+          {formData.type === 'group' && <div>
+            <label className="block mb-3 text-[#5A1616] font-bold">
+              <TranslatableText text="No. Of Persons" />
+              <span className="text-red-500">*</span>
+            </label>
+            <input
+              type="text"
+              value={formData.noOfPerson}
+              onChange={(e) => onChange('noOfPerson', e.target.value)}
+              className="w-full p-2 border border-[#903603]/20 rounded-lg focus:outline-none focus:border-[#903603]"
+              placeholder="Enter No. Of Person"
+              required
+            />
+          </div>}
 
           <div>
             <label className="block mb-3 text-[#5A1616] font-bold">
-              <TranslatableText text="Name" />
+              <TranslatableText text="कलाकार/दल का नाम/Artist/Artist's Team Name" />
               <span className="text-red-500">*</span>
             </label>
             <input
@@ -74,7 +92,7 @@ const BasicDetails: React.FC<BasicDetailsProps> = ({ formData, onChange, onNext 
               value={formData.name}
               onChange={(e) => onChange('name', e.target.value)}
               className="w-full p-2 border border-[#903603]/20 rounded-lg focus:outline-none focus:border-[#903603]"
-              placeholder="कलाकार/दल का नाम/Artist/Artist's Team Name"
+              placeholder="Enter Your First Name"
               required
             />
           </div>
@@ -123,7 +141,7 @@ const BasicDetails: React.FC<BasicDetailsProps> = ({ formData, onChange, onNext 
                 value={formData.email}
                 onChange={(e) => onChange('email', e.target.value)}
                 className="w-full p-2 border border-[#903603]/20 rounded-lg focus:outline-none focus:border-[#903603]"
-                placeholder="ई-मेल/Email"
+                placeholder="Email"
                 required
               />
             </div>
@@ -144,6 +162,32 @@ const BasicDetails: React.FC<BasicDetailsProps> = ({ formData, onChange, onNext 
             </div>
             <div>
               <label className="block text-[#5A1616] font-bold text-lg mb-2">
+                <TranslatableText text="Enter Your 12 Digit Aadhar Number (अपना 12 अंकों का आधार नंबर दर्ज करें)" />
+                 <span className="text-red-500">*</span>
+              </label>
+              <input
+                type="number"
+                value={formData.adhaarNo}
+                onChange={(e) => onChange('adhaarNo', e.target.value)}
+                className="w-full p-2 border border-[#903603]/20 rounded-lg focus:outline-none focus:border-[#903603]"
+                placeholder="Enter Adhaar No."
+                required
+              />
+            </div>
+            <div>
+              <label className="block text-[#5A1616] font-bold text-lg mb-2">
+                <TranslatableText text="PAN Id ( पैन आईडी )" />
+              </label>
+              <input
+                type="text"
+                value={formData.panNumber}
+                onChange={(e) => onChange('panNumber', e.target.value)}
+                className="w-full p-2 border border-[#903603]/20 rounded-lg focus:outline-none focus:border-[#903603]"
+                placeholder="Enter PAN ID (e.g ABCD1234F)"
+              />
+            </div>
+            <div>
+              <label className="block text-[#5A1616] font-bold text-lg mb-2">
                 <TranslatableText text="वेबसाइट (यदि कोई हो)/Website (if any)" />
               </label>
               <input
@@ -154,10 +198,53 @@ const BasicDetails: React.FC<BasicDetailsProps> = ({ formData, onChange, onNext 
                 placeholder="Enter website URL"
               />
             </div>
-          </div>
+            <div>
+              <label className="block text-[#5A1616] font-bold text-lg mb-2">
+                <TranslatableText text="Upload Photo ( फोटो अपलोड करें )" />
+              </label>
+              <input
+                type="file"
+                accept="image/*"
+                onChange={(e) => {
+                  const file = e.target.files?.[0];
+                  if (!file) return;
+                   if (file.size > 1048576) {
+                  alert("Image size should be under 1MB");
+                  return;
+               }
 
-          <div>
-            <label className="block mb-3 text-[#5A1616] font-bold">
+                  const reader = new FileReader();
+                  reader.onloadend = () => {
+                    const base64 = reader.result?.toString() || '';
+                    onChange('imageUrl', base64);
+                  };
+                  reader.readAsDataURL(file);
+                }}
+                className="w-full  border border-[#903603]/20 rounded-lg focus:outline-none focus:border-[#903603]"
+              />
+             
+              {formData.imageUrl?.startsWith("data:image") && (
+                <img
+                  src={formData.imageUrl}
+                  alt="Preview"
+                  className="mt-4 w-32 h-32 object-cover border border-gray-300 rounded"
+                />
+              )}
+              
+              <span className='text-red-500 text-sm'>कृपया 1 MB से कम आकार की प्रोफ़ाइल फोटो अपलोड करें.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div className="bg-white/80 backdrop-blur-sm space-y-4 rounded-xl p-6 border border-[#5A1616]/10">
+        
+          <div className='p-6 rounded-xl border border-black'>
+           <h2 className="text-xl absolute bg-white mt-2 space-y-4 p-2 -top-0 font-bold text-[#903603] border border-black rounded-sm mb-8 font-['Baloo_2'] text-center">
+            <TranslatableText text="Contact Details" />
+           </h2>
+            <div>
+            <label className="block mb-3 mt-1 text-[#5A1616] font-bold">
               <TranslatableText text="पता/Address" />
               <span className="text-red-500">*</span>
             </label>
@@ -168,7 +255,7 @@ const BasicDetails: React.FC<BasicDetailsProps> = ({ formData, onChange, onNext 
               rows={3}
               required
             />
-          </div>
+            </div>
 
           <div className="space-y-4">
             <div>
@@ -203,6 +290,7 @@ const BasicDetails: React.FC<BasicDetailsProps> = ({ formData, onChange, onNext 
                </div>
               </div>
             </div>
+          </div>
             <div>
               <label className="block text-[#5A1616] font-bold text-lg mb-2">
                 <TranslatableText text="राज्य/State" />
@@ -219,7 +307,7 @@ const BasicDetails: React.FC<BasicDetailsProps> = ({ formData, onChange, onNext 
             </div>
           </div>
         </div>
-      </div>
+      
 
       <div className="flex justify-end">
         <button

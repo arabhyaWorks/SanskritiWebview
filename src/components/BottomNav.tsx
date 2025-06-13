@@ -35,7 +35,6 @@ const BottomNav: React.FC = () => {
             className="text-xs font-medium"
           />
         </button>
-        
         {/*
         <button 
           onClick={onPrivacyPolicyClick}

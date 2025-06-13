@@ -26,6 +26,10 @@ const ArtistRegistration: React.FC<ArtistRegistrationProps> = ({ onClose }) => {
     pinCode: '',
     city: '',
     state: '',
+    adhaarNo: '',
+    panNo: '',
+    imageUrl:'',
+    noOfPerson:'',
 
     // Art Details
     artForm: '',
@@ -38,6 +42,7 @@ const ArtistRegistration: React.FC<ArtistRegistrationProps> = ({ onClose }) => {
     referenceNames: ['', ''],
     referenceDesignations: ['', ''],
     achievements: '',
+    imageMultipleUrl:[],
 
     // Bank Details
     accountHolderName: '',
@@ -81,9 +86,7 @@ const ArtistRegistration: React.FC<ArtistRegistrationProps> = ({ onClose }) => {
     { id: 1, label: 'Basic Details' },
     { id: 2, label: 'Art Details' },
     { id: 3, label: 'Bank Details' },
-    { id: 4, label: 'Upload Documents' },
-    { id: 5, label: 'Review and final submit' }
-  ];
+    ];
 
   return (
     <div className="fixed inset-0 bg-gradient-to-b from-white to-[#FFF8F8] z-50 overflow-y-auto">
@@ -146,24 +149,25 @@ const ArtistRegistration: React.FC<ArtistRegistrationProps> = ({ onClose }) => {
           />
         )}
         {currentStep === 3 && (
-          <BankDetails
+          <div><BankDetails
             formData={formData}
             onChange={handleChange}
             onNext={handleNext}
             onBack={handleBack}
           />
+         </div>
         )}
-        {currentStep === 4 && (
+        {/*{currentStep === 4 && (
           <UploadDocuments
             formData={formData}
             onChange={handleChange}
             onNext={handleNext}
             onBack={handleBack}
           />
-        )}
-        {currentStep === 5 && (
+        )}*/}
+        {/*{currentStep === 5 && (
           <div className="space-y-6">
-            {/* Review component will be added here */}
+            
             <div className="flex justify-between">
               <button
                 onClick={handleBack}
@@ -180,6 +184,7 @@ const ArtistRegistration: React.FC<ArtistRegistrationProps> = ({ onClose }) => {
             </div>
           </div>
         )}
+        */}
       </div>
     </div>
   );

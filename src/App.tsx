@@ -22,6 +22,7 @@ import AboutUs from './components/AboutUs';
 import Contact from './components/Contact';
 import Who from './components/Who';
 import Artists from './components/Artists';
+import ArtistRegistration from './components/ArtistRegistration';
 
 function App() {
   const navigate = useNavigate();
@@ -48,7 +49,7 @@ function App() {
         <Route path="/department" element={<Department onClose={() => navigate('/')} />} />
         <Route path="/events" element={<Events onClose={() => navigate('/')} />} />
         <Route path="/artists" element={<Artists onClose={() => navigate('/')} />} />
-
+        
         <Route path="/" element={
       <div 
         className="min-h-screen w-full sm:hidden relative"

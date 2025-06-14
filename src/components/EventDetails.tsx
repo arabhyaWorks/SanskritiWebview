@@ -86,7 +86,7 @@ const EventDetails: React.FC<EventDetailsProps> = ({ onClose, eventId }) => {
               <div className="flex items-center gap-2 text-sm text-[#903603] bg-[#903603]/5 w-fit px-3 py-1.5 rounded-full">
                 <Calendar className="w-4 h-4" />
                 <span>{formatDate(event.start_date_time)}</span>
-                <span>• {formatTime(event.start_date_time)}</span>
+                {/* <span>• {formatTime(event.start_date_time)}</span> */}
               </div>
 
               <h2 className="text-2xl font-bold text-[#5A1616] font-['Baloo_2']">
@@ -120,20 +120,20 @@ const EventDetails: React.FC<EventDetailsProps> = ({ onClose, eventId }) => {
                 <div className="pt-4 border-t border-[#903603]/10">
                   <h3 className="text-lg font-bold text-[#903603] mb-2">संस्था और पता</h3>
                   <p className="text-[#5A1616] text-sm">{event.opportunity_to_organise_event}</p>
-                  <p className="text-[#5A1616] text-sm">{event.event_city || 'उल्लेख नहीं किया गया'}</p>
+                  {/* <p className="text-[#5A1616] text-sm">{event.event_city || 'उल्लेख नहीं किया गया'}</p> */}
                 </div>
-
+{/* 
                 <div className="pt-4 border-t border-[#903603]/10">
                   <h3 className="text-lg font-bold text-[#903603] mb-2">संपर्क</h3>
                   <p className="text-[#5A1616] text-sm">फोन: 1234567890</p>
                   <p className="text-[#5A1616] text-sm">ईमेल: example@email.com</p>
-                </div>
+                </div> */}
 
-                <div className="pt-4">
+                {/* <div className="pt-4">
                   <button className="block w-full bg-[#903603] text-white text-center py-3 rounded-lg font-medium hover:bg-[#5A1616] transition-colors">
                     पंजीकरण करें
                   </button>
-                </div>
+                </div> */}
               </div>
             </div>
           </div>

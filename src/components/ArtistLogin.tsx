@@ -4,7 +4,6 @@ import { TranslatableText } from "./TranslatableText";
 import { loginArtist } from "../lib/api";
 import { useNavigate } from "react-router-dom";
 import abstract from "../assets/abstract.png";
-import ArtistRegistration from "./ArtistRegistration";
 import backgroundImage from "../assets/VibhgaBG.avif";
 
 interface ArtistLoginProps {
@@ -18,6 +17,7 @@ const ArtistLogin: React.FC<ArtistLoginProps> = ({ onClose }) => {
   const [isOtpSent, setIsOtpSent] = useState(false);
   const [error, setError] = useState("");
   const [storedOtp, setStoredOtp] = useState("");
+  const [responseData, setResponseData] = useState<any>(null);
 
   const handleSendOtp = async () => {
     if (!mobile || mobile.length !== 10) {
@@ -27,10 +27,11 @@ const ArtistLogin: React.FC<ArtistLoginProps> = ({ onClose }) => {
 
     try {
       const response = await loginArtist(mobile);
+      console.log("Login response:", response);
       if (response.status === 1) {
-        console.log("OTP sent successfully:", response.data); 
-        localStorage.setItem("artistId", response.data.id);
-        localStorage.setItem("artistMobile", response.data.mobile);
+        console.log("OTP sent successfully:", response.data);
+
+        setResponseData(response.data);
         setStoredOtp(response.data.mobile_otp);
         setIsOtpSent(true);
         setError("");
@@ -42,15 +43,19 @@ const ArtistLogin: React.FC<ArtistLoginProps> = ({ onClose }) => {
     }
   };
 
+
+  //{status: 1, msg: 'User registered successfully', data: {…}}
+
+  //artistId,artistMobile
   const handleVerifyOtp = () => {
     if (otp === storedOtp) {
-      navigate("/artisthome");
+      localStorage.setItem("artistId", responseData.id);
+      localStorage.setItem("artistMobile", responseData.mobile);
+      navigate("/artist");
     } else {
       setError("गलत OTP। कृपया पुनः प्रयास करें।");
     }
   };
-
-  const [showRegistration, setShowRegistration] = useState(true);
 
   return (
     <div className="fixed inset-0 bg-gradient-to-b from-white to-[#FFF8F8] z-50 overflow-y-auto">
@@ -205,16 +210,10 @@ const ArtistLogin: React.FC<ArtistLoginProps> = ({ onClose }) => {
                 <Phone className="w-4 h-4" />
                 <span>+91 8077-959-952</span>
               </div>
-              {/* <p className="text-[#5A1616]/70 text-xs">
-                <TranslatableText text="टोल फ्री नंबर" />
-              </p> */}
             </div>
           </div>
         </div>
       </div>
-      {showRegistration && (
-        <ArtistRegistration onClose={() => setShowRegistration(false)} />
-      )}
     </div>
   );
 };

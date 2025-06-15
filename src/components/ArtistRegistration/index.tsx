@@ -1,17 +1,15 @@
 import React, { useState } from "react";
 import { ChevronLeft } from "lucide-react";
 import { TranslatableText } from "../TranslatableText";
+import { useNavigate } from "react-router-dom";
 import BasicDetails from "./BasicDetails";
 import ArtDetails from "./ArtDetails";
 import BankDetails from "./BankDetails";
 import UploadDocuments from "./UploadDocuments";
 import backgroundImage from "../../assets/VibhgaBG.avif";
 
-interface ArtistRegistrationProps {
-  onClose: () => void;
-}
-
-const ArtistRegistration: React.FC<ArtistRegistrationProps> = ({ onClose }) => {
+const ArtistRegistration = () => {
+  const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState(1);
 
   const handleNext = () => {
@@ -42,7 +40,7 @@ const ArtistRegistration: React.FC<ArtistRegistrationProps> = ({ onClose }) => {
       <div className="sticky top-0 bg-white/80 backdrop-blur-sm z-10 shadow-sm">
         <div className="flex items-center gap-3 p-4 max-w-2xl mx-auto">
           <button
-            onClick={onClose}
+            onClick={() => navigate(-1)}
             className="p-1 bg-black/20 hover:bg-black/60 rounded-full transition-colors group"
           >
             <ChevronLeft className="w-6 h-6 text-brown-500 group-hover:scale-110 transition-transform" />
@@ -56,8 +54,9 @@ const ArtistRegistration: React.FC<ArtistRegistrationProps> = ({ onClose }) => {
 
         <div className="flex overflow-x-auto gap-2 pb-3 px-4 max-w-2xl mx-auto hide-scrollbar">
           {steps.map((step) => (
-            <div
+            <button
               key={step.id}
+              onClick={() => setCurrentStep(step.id)}
               className={`flex-shrink-0 px-4 py-2 rounded-full text-sm font-medium transition-colors ${
                 currentStep === step.id
                   ? "bg-[#903603] text-white"
@@ -67,7 +66,7 @@ const ArtistRegistration: React.FC<ArtistRegistrationProps> = ({ onClose }) => {
               }`}
             >
               <TranslatableText text={step.label} />
-            </div>
+            </button>
           ))}
         </div>
       </div>
@@ -82,34 +81,7 @@ const ArtistRegistration: React.FC<ArtistRegistrationProps> = ({ onClose }) => {
             <BankDetails onNext={handleNext} onBack={handleBack} />
           </div>
         )}
-        {/*{currentStep === 4 && (
-          <UploadDocuments
-            formData={formData}
-            onChange={handleChange}
-            onNext={handleNext}
-            onBack={handleBack}
-          />
-        )}*/}
-        {/*{currentStep === 5 && (
-          <div className="space-y-6">
-            
-            <div className="flex justify-between">
-              <button
-                onClick={handleBack}
-                className="px-6 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition-colors"
-              >
-                <TranslatableText text="Back" />
-              </button>
-              <button
-                onClick={handleSubmit}
-                className="px-6 py-2 bg-[#903603] text-white rounded-lg hover:bg-[#5A1616] transition-colors"
-              >
-                <TranslatableText text="Submit" />
-              </button>
-            </div>
-          </div>
-        )}
-        */}
+
       </div>
     </div>
   );

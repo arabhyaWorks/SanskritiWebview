@@ -1,7 +1,7 @@
 {
   "body": {
     "token": "cultureapisanindiatoken",
-    "id": "10050",
+    "id": "10060",
     "individual_or_organization": "1",
     "aadhar_number": "42424242424",
     "pan_number": "ASNPG4996N",
@@ -20,7 +20,7 @@
     "status": 1,
     "msg": "User data updated successfully.",
     "data": {
-      "id": 10050,
+      "id": 10060,
       "auth_type": null,
       "first_name": "Arabhaya",
       "middle_name": null,

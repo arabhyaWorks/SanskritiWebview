@@ -104,7 +104,7 @@ const BasicDetails: React.FC<BasicDetailsProps> = ({ onNext }) => {
 
     const payload = {
       token: "cultureapisanindiatoken",
-      id: localStorage.getItem("artistId") || "10050",
+      id: localStorage.getItem("artistId") || "10060",
       individual_or_organization: formData.individual_or_organization,
       aadhar_number: formData.aadhar_number,
       pan_number: formData.pan_number,

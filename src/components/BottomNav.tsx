@@ -12,7 +12,7 @@ const BottomNav: React.FC = () => {
   const getActiveTab = () => {
     if (location.pathname === '/') return 'home';
     if (location.pathname.startsWith('/events')) return 'events';
-    if (location.pathname.startsWith('/artists')) return 'profile';
+    if (location.pathname.startsWith('/artist')) return 'profile';
     return '';
   };
 
@@ -73,7 +73,7 @@ const BottomNav: React.FC = () => {
         
         <button 
           onClick = {() => {
-            navigate('/artists')
+            navigate('/artist')
             }}
           className={`relative flex flex-col items-center gap-1 p-2 text-[#903603] active:scale-95 transition-all ${
             activeTab === 'profile' ? 'text-[#903603]' : 'text-[#903603]/60'

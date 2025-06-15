@@ -6,6 +6,7 @@ import Header from "./components/Header";
 import ArtistHome from "./components/ArtistHome";
 import PrivacyPolicy from "./components/PrivacyPolicy";
 import Events from "./components/Events";
+import EventDetail from "./components/EventDetail";
 import BottomNav from "./components/BottomNav";
 import Department from "./components/Department";
 import OrgStructure from "./components/OrgStructure";
@@ -21,9 +22,10 @@ import { LanguageProvider } from "./contexts/LanguageContext";
 import AboutUs from "./components/AboutUs";
 import Contact from "./components/Contact";
 import Who from "./components/Who";
-import Artists from "./components/Artists";
+import Artists from "./components/artists";
 
 import ArtistLogin from "./components/ArtistLogin";
+import ArtistRegistration from "./components/ArtistRegistration";
 
 function App() {
   const navigate = useNavigate();
@@ -61,7 +63,7 @@ function App() {
             <IconsSection
               onAboutUsClick={() => navigate("/about-us")}
               onDepartmentClick={() => navigate("/department")}
-              onProfileClick={() => navigate("/artists")}
+              onProfileClick={() => navigate("/artist")}
               onEventsClick={() => navigate("/events")}
             />
             <PanjikaranSection />
@@ -117,7 +119,6 @@ function App() {
           path="/privacy-policy"
           element={<PrivacyPolicy onClose={() => navigate("/")} />}
         />
-       
 
         <Route
           path="/about-us"
@@ -148,13 +149,21 @@ function App() {
           element={<Events onClose={() => navigate("/")} />}
         />
         <Route
-          path="/artists"
+          path="/events/:eventId"
+          element={<EventDetail onClose={() => navigate("/")} />}
+        />
+        <Route
+          path="/artist"
           element={<ArtistHome  />}
         />
 
         <Route
           path="/artist-login"
           element={<ArtistLogin onClose={() => navigate("/")} />}
+        />
+        <Route
+          path="/profile"
+          element={<ArtistRegistration  />}
         />
 
          {/* <Route path="/artisthome" element={<ArtistHome />} /> */}

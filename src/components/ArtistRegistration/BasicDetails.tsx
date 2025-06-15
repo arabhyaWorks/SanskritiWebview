@@ -1,34 +1,22 @@
 import React, { useState, useEffect } from "react";
 import { TranslatableText } from "../TranslatableText";
+import { states, cities } from "../../utils/statesCities";
 
 interface BasicDetailsProps {
   onNext: () => void;
 }
 
-const states = [
-  { id: "1", state_name: "ANDHRA PRADESH", country_id: "105", status: "1" },
-  { id: "2", state_name: "UTTAR PRADESH", country_id: "105", status: "1" },
-  // Add more states as needed
-];
-
-const cities = [
-  { id: "515", city_name: "Agra", state_id: "2", tier_id: "1" },
-  { id: "516", city_name: "Allahabad", state_id: "2", tier_id: "1" },
-  { id: "517", city_name: "Vijayawada", state_id: "1", tier_id: "1" },
-  // Add more cities as needed
-];
-
-const memberOptions = [
-  "1",
-  "01-02",
-  "03-05",
-  "05-07",
-  "06-10",
-  "07-15",
-  "10-15",
-  "12-15",
-  "15-20",
-  "20-25",
+const noOfMembers = [
+  { id: "1", no_of_members: "1", alias: null, status: "1" },
+  { id: "2", no_of_members: "01-02", alias: null, status: "1" },
+  { id: "3", no_of_members: "03-05", alias: null, status: "1" },
+  { id: "4", no_of_members: "05-07", alias: null, status: "1" },
+  { id: "5", no_of_members: "06-10", alias: null, status: "1" },
+  { id: "6", no_of_members: "07-15", alias: null, status: "1" },
+  { id: "7", no_of_members: "10-15", alias: null, status: "1" },
+  { id: "8", no_of_members: "12-15", alias: null, status: "1" },
+  { id: "9", no_of_members: "15-20", alias: null, status: "1" },
+  { id: "10", no_of_members: "20-25", alias: null, status: "1" },
 ];
 
 const BasicDetails: React.FC<BasicDetailsProps> = ({ onNext }) => {
@@ -116,7 +104,7 @@ const BasicDetails: React.FC<BasicDetailsProps> = ({ onNext }) => {
 
     const payload = {
       token: "cultureapisanindiatoken",
-      id: "10050",
+      id: localStorage.getItem("artistId") || "10050",
       individual_or_organization: formData.individual_or_organization,
       aadhar_number: formData.aadhar_number,
       pan_number: formData.pan_number,
@@ -153,15 +141,15 @@ const BasicDetails: React.FC<BasicDetailsProps> = ({ onNext }) => {
       console.log(result);
 
       if (result.status == "1") {
-        console.log("here is the success message")
-        console.log(result.data.msg);
+        console.log("Success message:", result.msg);
         localStorage.setItem("artistId", result.data.id);
         onNext();
       } else {
-        console.log("this is the error")
+        console.log("Error:", result.msg);
         setErrors({ api: result.msg || "Submission failed" });
       }
     } catch (error) {
+      console.log("Network error:", error);
       setErrors({ api: "Network error occurred" });
     } finally {
       setIsSubmitting(false);
@@ -201,9 +189,10 @@ const BasicDetails: React.FC<BasicDetailsProps> = ({ onNext }) => {
                   name="type"
                   value="1"
                   checked={formData.individual_or_organization === "1"}
-                  onChange={(e) =>
-                    handleChange("individual_or_organization", e.target.value)
-                  }
+                  onChange={(e) => {
+                    handleChange("individual_or_organization", e.target.value);
+                    handleChange("member_in_team", "1");
+                  }}
                   className="mr-3"
                 />
                 <TranslatableText text="व्यक्ति/Individual" />
@@ -214,9 +203,10 @@ const BasicDetails: React.FC<BasicDetailsProps> = ({ onNext }) => {
                   name="type"
                   value="2"
                   checked={formData.individual_or_organization === "2"}
-                  onChange={(e) =>
-                    handleChange("individual_or_organization", e.target.value)
-                  }
+                  onChange={(e) => {
+                    handleChange("individual_or_organization", e.target.value);
+                    handleChange("member_in_team", "");
+                  }}
                   className="mr-3"
                 />
                 <TranslatableText
@@ -239,9 +229,9 @@ const BasicDetails: React.FC<BasicDetailsProps> = ({ onNext }) => {
                 required
               >
                 <option value="">Select Number of Members</option>
-                {memberOptions.map((option) => (
-                  <option key={option} value={option}>
-                    {option}
+                {noOfMembers.map((option) => (
+                  <option key={option.id} value={option.id}>
+                    {option.no_of_members}
                   </option>
                 ))}
               </select>

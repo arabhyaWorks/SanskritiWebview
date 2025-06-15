@@ -2,35 +2,13 @@ import React, { useState, useEffect } from "react";
 import { TranslatableText } from "../TranslatableText";
 import { artCategories, artSubCategories, grades } from "../../utils/statesCities";
 
-interface ArtDetailsProps {
-  onNext: () => void;
-  onBack: () => void;
-}
-
-
 const experienceYears = Array.from({ length: 50 }, (_, i) => ({
   id: `${i + 1}`,
   value: i + 1,
 }));
 
-const ArtDetails: React.FC<ArtDetailsProps> = ({ onNext, onBack }) => {
-  const [formData, setFormData] = useState({
-    art_cat_id: "",
-    art_sub_cat_id: "",
-    work_experience: "",
-    presentation_level: [] as string[],
-    air_doordarshan_grade: "",
-    contract_payment_details_by_other_dept: "",
-    other_achievements: "",
-    any_video_link: "",
-    first_senior_artist_or_gazetted_officers_name: "",
-    first_senior_artist_or_gazetted_officers_designation: "",
-    second_senior_artist_or_gazetted_officers_name: "",
-    second_senior_artist_or_gazetted_officers_designation: "",
-    max_five_file: [] as string[],
-  });
-
-  const [errors, setErrors] = useState<{ [key: string]: string }>({});
+const ArtDetails = ({ onNext, onBack, formData, updateFormData }) => {
+  const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [filteredSubCategories, setFilteredSubCategories] = useState(artSubCategories);
 
@@ -41,17 +19,27 @@ const ArtDetails: React.FC<ArtDetailsProps> = ({ onNext, onBack }) => {
         (subCat) => subCat.cat_id === formData.art_cat_id
       );
       setFilteredSubCategories(filtered);
-      setFormData((prev) => ({ ...prev, art_sub_cat_id: "" }));
+      // Don't reset sub-category if it's already set and valid for the selected category
+      const isValidSubCat = filtered.some(subCat => subCat.id === formData.art_sub_cat_id);
+      if (!isValidSubCat) {
+        updateFormData({ art_sub_cat_id: "" });
+      }
     }
   }, [formData.art_cat_id]);
 
+  // Parse presentation level from comma-separated string to array
+  const presentationLevelArray = formData.presentation_level 
+    ? (typeof formData.presentation_level === 'string' 
+        ? formData.presentation_level.split(',').map(level => level.trim()).filter(Boolean)
+        : formData.presentation_level)
+    : [];
+
   const validateForm = () => {
-    const newErrors: { [key: string]: string } = {};
+    const newErrors = {};
 
     if (!formData.art_cat_id) newErrors.art_cat_id = "Art category is required";
-    if (!formData.art_sub_cat_id) newErrors.art_sub_cat_id = "Art sub-category is required";
     if (!formData.work_experience) newErrors.work_experience = "Experience is required";
-    if (formData.presentation_level.length === 0)
+    if (presentationLevelArray.length === 0)
       newErrors.presentation_level = "At least one presentation level is required";
     if (!formData.air_doordarshan_grade)
       newErrors.air_doordarshan_grade = "Grade is required";
@@ -82,30 +70,27 @@ const ArtDetails: React.FC<ArtDetailsProps> = ({ onNext, onBack }) => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleChange = (key: string, value: any) => {
-    setFormData((prev) => ({ ...prev, [key]: value }));
+  const handleChange = (key, value) => {
+    updateFormData({ [key]: value });
     setErrors((prev) => ({ ...prev, [key]: "" }));
   };
 
-  const handlePresentationLevelChange = (level: string) => {
-    setFormData((prev) => {
-      const currentLevels = prev.presentation_level;
-      if (currentLevels.includes(level)) {
-        return {
-          ...prev,
-          presentation_level: currentLevels.filter((l) => l !== level),
-        };
-      } else {
-        return {
-          ...prev,
-          presentation_level: [...currentLevels, level],
-        };
-      }
-    });
+  const handlePresentationLevelChange = (level) => {
+    const currentLevels = presentationLevelArray;
+    let newLevels;
+    
+    if (currentLevels.includes(level)) {
+      newLevels = currentLevels.filter((l) => l !== level);
+    } else {
+      newLevels = [...currentLevels, level];
+    }
+    
+    // Update as comma-separated string to match API format
+    updateFormData({ presentation_level: newLevels.join(',') });
     setErrors((prev) => ({ ...prev, presentation_level: "" }));
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!validateForm()) return;
@@ -118,7 +103,9 @@ const ArtDetails: React.FC<ArtDetailsProps> = ({ onNext, onBack }) => {
       art_cat_id: formData.art_cat_id,
       art_sub_cat_id: formData.art_sub_cat_id,
       work_experience: formData.work_experience,
-      presentation_level: formData.presentation_level.join(","),
+      presentation_level: typeof formData.presentation_level === 'string' 
+        ? formData.presentation_level 
+        : formData.presentation_level.join(","),
       air_doordarshan_grade: formData.air_doordarshan_grade,
       contract_payment_details_by_other_dept: formData.contract_payment_details_by_other_dept,
       other_achievements: formData.other_achievements,
@@ -131,10 +118,12 @@ const ArtDetails: React.FC<ArtDetailsProps> = ({ onNext, onBack }) => {
         formData.second_senior_artist_or_gazetted_officers_name,
       second_senior_artist_or_gazetted_officers_designation:
         formData.second_senior_artist_or_gazetted_officers_designation,
-      max_five_file: formData.max_five_file.join(", "),
+      max_five_file: Array.isArray(formData.max_five_file) 
+        ? formData.max_five_file.join(", ") 
+        : formData.max_five_file,
     };
 
-    console.log(payload)
+    console.log("📤 Submitting art details:", payload);
 
     try {
       const response = await fetch("https://upsanskriti.com/app/user-art-details", {
@@ -146,13 +135,17 @@ const ArtDetails: React.FC<ArtDetailsProps> = ({ onNext, onBack }) => {
       });
 
       const result = await response.json();
+      console.log("📥 Art details response:", result);
 
       if (result.status === 1) {
+        console.log("✅ Art details saved successfully:", result.msg);
         onNext();
       } else {
+        console.log("❌ Error saving art details:", result.msg);
         setErrors({ api: result.msg || "Submission failed" });
       }
     } catch (error) {
+      console.log("❌ Network error:", error);
       setErrors({ api: "Network error occurred" });
     } finally {
       setIsSubmitting(false);
@@ -252,7 +245,7 @@ const ArtDetails: React.FC<ArtDetailsProps> = ({ onNext, onBack }) => {
                   <label key={level} className="flex items-center">
                     <input
                       type="checkbox"
-                      checked={formData.presentation_level.includes(level)}
+                      checked={presentationLevelArray.includes(level)}
                       onChange={() => handlePresentationLevelChange(level)}
                       className="mr-3"
                     />
@@ -442,7 +435,7 @@ const ArtDetails: React.FC<ArtDetailsProps> = ({ onNext, onBack }) => {
 
                   const fileArray = Array.from(files);
                   const imageReaders = fileArray.map((file) => {
-                    return new Promise<string>((resolve, reject) => {
+                    return new Promise((resolve, reject) => {
                       if (file.size > 1048576) {
                         setErrors((prev) => ({
                           ...prev,
@@ -471,9 +464,9 @@ const ArtDetails: React.FC<ArtDetailsProps> = ({ onNext, onBack }) => {
                 }}
                 className="w-full border border-[#903603]/20 rounded-lg focus:outline-none focus:border-[#903603]"
               />
-              {formData.max_five_file.length > 0 && (
+              {formData.max_five_file && formData.max_five_file.length > 0 && (
                 <div className="mt-4 flex flex-wrap gap-4">
-                  {formData.max_five_file.map((img, idx) => (
+                  {(Array.isArray(formData.max_five_file) ? formData.max_five_file : []).map((img, idx) => (
                     <img
                       key={idx}
                       src={img}
@@ -498,14 +491,14 @@ const ArtDetails: React.FC<ArtDetailsProps> = ({ onNext, onBack }) => {
         <button
           type="button"
           onClick={onBack}
-          className="px-6 py-3 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition-colors"
+          className="px-6 py-3 bg-gray-500 text-white rounded-lg transition-colors"
         >
           <TranslatableText text="पीछे" />
         </button>
         <button
           type="submit"
           disabled={isSubmitting}
-          className={`px-6 py-3 bg-[#903603] text-white rounded-lg hover:bg-[#5A1616] transition-colors ${
+          className={`px-6 py-3 bg-[#903603] text-white rounded-lg transition-colors ${
             isSubmitting ? "opacity-50 cursor-not-allowed" : ""
           }`}
         >

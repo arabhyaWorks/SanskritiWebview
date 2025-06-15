@@ -2,10 +2,6 @@ import React, { useState, useEffect } from "react";
 import { TranslatableText } from "../TranslatableText";
 import { states, cities } from "../../utils/statesCities";
 
-interface BasicDetailsProps {
-  onNext: () => void;
-}
-
 const noOfMembers = [
   { id: "1", no_of_members: "1", alias: null, status: "1" },
   { id: "2", no_of_members: "01-02", alias: null, status: "1" },
@@ -19,25 +15,8 @@ const noOfMembers = [
   { id: "10", no_of_members: "20-25", alias: null, status: "1" },
 ];
 
-const BasicDetails: React.FC<BasicDetailsProps> = ({ onNext }) => {
-  const [formData, setFormData] = useState({
-    individual_or_organization: "1",
-    aadhar_number: "",
-    pan_number: "",
-    first_name: "",
-    gender: "",
-    email: "",
-    address: "",
-    state: "",
-    city: "",
-    zipcode: "",
-    member_in_team: "",
-    website: "",
-    applicant_photo: "",
-    dob: "",
-  });
-
-  const [errors, setErrors] = useState<{ [key: string]: string }>({});
+const BasicDetails = ({ onNext, formData, updateFormData }) => {
+  const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [filteredCities, setFilteredCities] = useState(cities);
 
@@ -58,12 +37,16 @@ const BasicDetails: React.FC<BasicDetailsProps> = ({ onNext }) => {
         (city) => city.state_id === formData.state
       );
       setFilteredCities(filtered);
-      setFormData((prev) => ({ ...prev, city: "" }));
+      // Don't reset city if it's already set and valid for the selected state
+      const isValidCity = filtered.some(city => city.id === formData.city);
+      if (!isValidCity) {
+        updateFormData({ city: "" });
+      }
     }
   }, [formData.state]);
 
   const validateForm = () => {
-    const newErrors: { [key: string]: string } = {};
+    const newErrors = {};
 
     // Aadhar validation: 12 digits only
     if (!/^\d{12}$/.test(formData.aadhar_number)) {
@@ -95,7 +78,7 @@ const BasicDetails: React.FC<BasicDetailsProps> = ({ onNext }) => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!validateForm()) return;
@@ -121,9 +104,11 @@ const BasicDetails: React.FC<BasicDetailsProps> = ({ onNext }) => {
           : "1",
       website: formData.website,
       applicant_photo: formData.applicant_photo,
+      date_of_birth: formData.dob,
     };
 
-    console.log(payload);
+    console.log("📤 Submitting basic details:", payload);
+    
     try {
       const response = await fetch(
         "https://upsanskriti.com/app/user-basic-details",
@@ -137,27 +122,26 @@ const BasicDetails: React.FC<BasicDetailsProps> = ({ onNext }) => {
       );
 
       const result = await response.json();
-
-      console.log(result);
+      console.log("📥 Basic details response:", result);
 
       if (result.status == "1") {
-        console.log("Success message:", result.msg);
+        console.log("✅ Basic details saved successfully:", result.msg);
         localStorage.setItem("artistId", result.data.id);
         onNext();
       } else {
-        console.log("Error:", result.msg);
+        console.log("❌ Error saving basic details:", result.msg);
         setErrors({ api: result.msg || "Submission failed" });
       }
     } catch (error) {
-      console.log("Network error:", error);
+      console.log("❌ Network error:", error);
       setErrors({ api: "Network error occurred" });
     } finally {
       setIsSubmitting(false);
     }
   };
 
-  const handleChange = (key: string, value: string) => {
-    setFormData((prev) => ({ ...prev, [key]: value }));
+  const handleChange = (key, value) => {
+    updateFormData({ [key]: value });
     setErrors((prev) => ({ ...prev, [key]: "" }));
   };
 
@@ -527,7 +511,7 @@ const BasicDetails: React.FC<BasicDetailsProps> = ({ onNext }) => {
         <button
           type="submit"
           disabled={isSubmitting}
-          className={`px-6 py-2 bg-[#903603] text-white rounded-lg hover:bg-[#5A1616] transition-colors ${
+          className={`px-6 py-2 bg-[#903603] text-white rounded-lg transition-colors ${
             isSubmitting ? "opacity-50 cursor-not-allowed" : ""
           }`}
         >

@@ -143,8 +143,7 @@ const ContestRegister: React.FC = () => {
   };
 
   const handleBack = () => {
-    // Navigate back to home or previous page
-    console.log("Navigate back");
+    navigate('/')
   };
 
   const goToLogin = () => {

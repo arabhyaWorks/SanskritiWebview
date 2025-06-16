@@ -99,7 +99,7 @@ const ContestLogin: React.FC = () => {
       );
 
       const result = await response.json();
-      console.log(result)
+
 
       if (result.status) {
         // Send OTP
@@ -311,7 +311,7 @@ const ContestLogin: React.FC = () => {
 
   const handleBack = () => {
     if (currentView === "login") {
-      console.log("Navigate back to home");
+      navigate("/");
     } else if (currentView === "mobile-otp") {
       setCurrentView("login");
       setOtp("");
@@ -322,7 +322,7 @@ const ContestLogin: React.FC = () => {
   };
 
   const goToRegister = () => {
-    console.log("Navigate to register");
+    navigate("/contest/register");
   };
 
   // Main Login View

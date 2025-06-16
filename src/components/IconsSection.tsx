@@ -36,7 +36,7 @@ const IconsSection: React.FC<IconsSectionProps> = ({ onAboutUsClick, onDepartmen
     { img: humareBareMein, text: 'हमारे बारे में', key: 'about-us', onClick: onAboutUsClick, 'data-about-us': true },
     { img: vibhag, text: 'विभाग', key: 'department', onClick: onDepartmentClick },
     { img: kalakarPanjikaran, text: 'कलाकार\nपंजीकरण', key: 'artist-registration' , onClick:onProfileClick },
-    { img: sanskritikKaryakram, text: 'सांस्कृतिक कार्यक्रम', key: 'cultural-program', onClick:onEventsClick},
+    { img: sanskritikKaryakram, text: 'सांस्कृतिक कैलेंडर', key: 'cultural-program', onClick:onEventsClick},
     { img: uttarPradesh, text: 'उत्तर प्रदेश की संरचना', key: 'up-structure', url: 'https://upculture.up.nic.in/sites/default/files/documents/Coffee-table-book-final-new-resize-cdr.pdf'  },
     { img: dirgha, text: 'दीर्घा', key: 'gallery', onClick: () => setShowGallery(true) },
     { img: kalyankariYojnayen, text: 'कल्याणकारी योजनायें', key: 'welfare-schemes', onClick: () => setShowKalyankari(true) },

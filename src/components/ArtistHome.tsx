@@ -380,22 +380,7 @@ const ArtistHome: React.FC = () => {
     },
   ];
 
-  const menuItems = [
-    {
-      icon: <History className="w-6 h-6" />,
-      title: "पिछले कार्यक्रम",
-      description: "अपने पिछले कार्यक्रमों को देखें",
-      color: "bg-purple-500",
-      onClick: () => navigate("/artist/past-events"),
-    },
-    {
-      icon: <CalendarCheck className="w-6 h-6" />,
-      title: "आगामी कार्यक्रम",
-      description: "आने वाले कार्यक्रमों की जानकारी",
-      color: "bg-orange-500",
-      onClick: () => navigate("/artist/upcoming-events"),
-    },
-  ];
+
 
   if (loading) {
     return (
@@ -634,38 +619,7 @@ const ArtistHome: React.FC = () => {
           </div>
         )}
 
-        {/* Menu Items */}
-        <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg p-6 border border-[#5A1616]/10">
-          <img
-            src={abstract}
-            alt="Abstract Design"
-            className="w-40 mx-auto mb-6"
-          />
-
-          <div className="grid gap-4">
-            {menuItems.map((item, index) => (
-              <button
-                key={index}
-                onClick={item.onClick}
-                className="bg-white rounded-xl p-6 shadow-md transition-all border border-[#903603]/10 text-left flex items-center gap-4 active:scale-[0.99]"
-              >
-                <div
-                  className={`${item.color} p-3 rounded-xl text-white transition-transform`}
-                >
-                  {item.icon}
-                </div>
-                <div>
-                  <h3 className="text-lg font-bold text-[#5A1616] mb-1 font-['Baloo_2']">
-                    <TranslatableText text={item.title} />
-                  </h3>
-                  <p className="text-sm text-[#5A1616]/70">
-                    <TranslatableText text={item.description} />
-                  </p>
-                </div>
-              </button>
-            ))}
-          </div>
-        </div>
+     
 
         {error && (
           <div className="bg-red-50 border border-red-200 rounded-xl p-4">

@@ -255,7 +255,7 @@ const EventDetail: React.FC = () => {
         color: "gray",
       };
 
-    const eventPassed = isEventPassed(invitationStatus.end_date_time);
+    const eventPassed = isEventPassed(eventData.end_date_time);
 
     if (invitationStatus.invitation_status === 1 && eventPassed) {
       return {

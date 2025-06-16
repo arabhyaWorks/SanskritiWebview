@@ -84,7 +84,7 @@ const BottomNav: React.FC = () => {
           )}
           <User className="w-6 h-6" />
           <TranslatableText 
-            text="प्रोफाइल"
+            text="कलाकार"
             className="text-xs font-medium"
           />
         </button>

@@ -16,8 +16,8 @@ import {
 } from "lucide-react";
 import { TranslatableText } from "./TranslatableText";
 import abstract from "../assets/abstract.png";
-import Footer from "./Footer";
 import backgroundImage from "../assets/VibhgaBG.avif";
+import Footer from "./Footer";
 import { useNavigate } from "react-router-dom";
 
 interface ArtistData {
@@ -119,8 +119,8 @@ const ArtistHome: React.FC = () => {
       data.city &&
       data.zipcode &&
       data.member_in_team;
-      //  &&
-      // data.date_of_birth;
+    //  &&
+    // data.date_of_birth;
 
     //console.log("✅ Basic details check:", basicDetailsComplete);
     // console.log("📋 Basic details breakdown:", {
@@ -186,6 +186,16 @@ const ArtistHome: React.FC = () => {
       console.log("✅ Profile is complete - no action needed");
     }
   };
+
+  useEffect(() => {
+    const artistId = localStorage.getItem("artistId");
+    const artistMobile = localStorage.getItem("artistMobile");
+
+    if (!artistId || !artistMobile) {
+      navigate("/artist-login");
+      return;
+    }
+  }, [navigate]);
 
   const fetchArtistData = async () => {
     try {
@@ -476,14 +486,14 @@ const ArtistHome: React.FC = () => {
             {/* Profile Action Buttons */}
             <div className="flex gap-3">
               <button
-                onClick={() => navigate("/artist/profile")}
+                onClick={() => navigate("/profile")}
                 className="flex-1 bg-[#5A1616] text-white py-3 px-4 rounded-xl font-medium font-['Baloo_2'] active:scale-95 transition-transform flex items-center justify-center gap-2"
               >
                 <User className="w-4 h-4" />
                 प्रोफ़ाइल देखें
               </button>
               <button
-                onClick={() => navigate("/artist/edit-profile")}
+                onClick={() => navigate("/profile")}
                 className="flex-1 bg-white text-[#5A1616] py-3 px-4 rounded-xl font-medium font-['Baloo_2'] active:scale-95 transition-transform border border-[#5A1616] flex items-center justify-center gap-2"
               >
                 <UserCog className="w-4 h-4" />

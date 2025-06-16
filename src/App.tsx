@@ -27,6 +27,11 @@ import Artists from "./components/artists";
 import ArtistLogin from "./components/ArtistLogin";
 import ArtistRegistration from "./components/ArtistRegistration";
 
+import ContestRegister from "./Pages/contestRegister";
+import ContestLogin from './Pages/contestLogin';
+import ContestDashboard from './Pages/contestDashboard';
+import ContestProfile from './Pages/contestProfile';
+
 function App() {
   const navigate = useNavigate();
 
@@ -165,6 +170,25 @@ function App() {
           path="/profile"
           element={<ArtistRegistration  />}
         />
+        <Route
+          path="/contest/register"
+          element={<ContestRegister  />}
+        />
+
+        <Route
+          path="/contest/login"
+          element={<ContestLogin  />}
+        />
+        <Route
+          path="/contest/dashboard"
+          element={<ContestDashboard  />}
+        />
+        <Route
+          path="/contest/profile"
+          element={<ContestProfile  />}
+        />
+
+
 
          {/* <Route path="/artisthome" element={<ArtistHome />} /> */}
 

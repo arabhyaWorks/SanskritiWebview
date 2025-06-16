@@ -1,6 +1,24 @@
+
+{/*
+<button 
+  onClick={onPrivacyPolicyClick}
+  className={`relative flex flex-col items-center gap-1 p-2 text-[#903603] active:scale-95 transition-all ${
+    activeTab === 'privacy' ? 'text-[#903603]' : 'text-[#903603]/60'
+  }`}
+>
+  {activeTab === 'privacy' && (
+    <div className="absolute -top-1 w-1.5 h-1.5 rounded-full bg-[#903603] animate-bounce" />
+  )}
+  <Shield className="w-6 h-6" />
+  <TranslatableText 
+    text="Privacy"
+    className="text-xs font-medium"
+  />
+</button>*/}
+
 import React from 'react';
 import { useState } from 'react';
-import { Home, Calendar, User, Shield } from 'lucide-react';
+import { Home, Calendar, User, Shield, Trophy } from 'lucide-react';
 import { TranslatableText } from './TranslatableText';
 import { useNavigate, useLocation } from 'react-router-dom';
 
@@ -13,6 +31,7 @@ const BottomNav: React.FC = () => {
     if (location.pathname === '/') return 'home';
     if (location.pathname.startsWith('/events')) return 'events';
     if (location.pathname.startsWith('/artist')) return 'profile';
+    if (location.pathname.startsWith('/contest')) return 'contest';
     return '';
   };
 
@@ -67,6 +86,24 @@ const BottomNav: React.FC = () => {
           <Calendar className="w-6 h-6" />
           <TranslatableText 
             text="कार्यक्रम"
+            className="text-xs font-medium"
+          />
+        </button>
+
+        <button 
+          onClick={() => {
+            navigate('/contest/dashboard')
+          }}
+          className={`relative flex flex-col items-center gap-1 p-2 text-[#903603] active:scale-95 transition-all ${
+            activeTab === 'contest' ? 'text-[#903603]' : 'text-[#903603]/60'
+          }`}
+        >
+          {activeTab === 'contest' && (
+            <div className="absolute -top-1 w-1.5 h-1.5 rounded-full bg-[#903603] animate-bounce" />
+          )}
+          <Trophy className="w-6 h-6" />
+          <TranslatableText 
+            text="प्रतियोगिता"
             className="text-xs font-medium"
           />
         </button>

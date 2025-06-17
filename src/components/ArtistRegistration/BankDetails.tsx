@@ -1,10 +1,14 @@
 import React, { useState } from "react";
 import { TranslatableText } from "../TranslatableText";
+import { useNavigate } from "react-router-dom";
 
 const BankDetails = ({ onNext, onBack, formData, updateFormData }) => {
+  const navigate = useNavigate();
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [selectedFile, setSelectedFile] = useState(null);
+  // Toggle this flag to make cancelled cheque mandatory or non-mandatory
+  const isCancelledChequeMandatory = false;
 
   const validateForm = () => {
     const newErrors = {};
@@ -45,8 +49,8 @@ const BankDetails = ({ onNext, onBack, formData, updateFormData }) => {
       newErrors.branch_name = "Branch name is required";
     }
 
-    // Cancelled cheque: required
-    if (!formData.cancelled_cheque && !selectedFile) {
+    // Cancelled cheque: validate only if mandatory
+    if (isCancelledChequeMandatory && !formData.cancelled_cheque && !selectedFile) {
       newErrors.cancelled_cheque = "Cancelled cheque/passbook is required";
     }
 
@@ -128,7 +132,7 @@ const BankDetails = ({ onNext, onBack, formData, updateFormData }) => {
 
       if (result.status == 1) {
         console.log("✅ Bank details saved successfully:", result.msg);
-        onNext();
+        navigate("/artist")
       } else {
         console.log("❌ Error saving bank details:", result.msg);
         setErrors({ api: result.msg || "Submission failed" });
@@ -295,14 +299,14 @@ const BankDetails = ({ onNext, onBack, formData, updateFormData }) => {
             <div>
               <label className="block mb-2 text-[#5A1616] font-bold">
                 <TranslatableText text="रद्द चेक/पासबूक अपलोड करें/Upload Cancelled Cheque/Passbook" />
-                <span className="text-red-500">*</span>
+                {isCancelledChequeMandatory && <span className="text-red-500">*</span>}
               </label>
               <input
                 type="file"
                 onChange={handleFileChange}
                 accept="image/jpeg,image/png,application/pdf"
                 className="w-full p-3 border border-[#903603]/20 rounded-lg focus:outline-none focus:border-[#903603] bg-white/80"
-                required={!formData.cancelled_cheque}
+                required={isCancelledChequeMandatory && !formData.cancelled_cheque}
               />
               
               {/* Show existing file if pre-populated */}

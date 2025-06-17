@@ -32,6 +32,8 @@ import ContestLogin from './Pages/contestLogin';
 import ContestDashboard from './Pages/contestDashboard';
 import ContestProfile from './Pages/contestProfile';
 
+import RestASRPage from "./components/chatbot/index";
+
 function App() {
   const navigate = useNavigate();
 
@@ -186,6 +188,10 @@ function App() {
         <Route
           path="/contest/profile"
           element={<ContestProfile  />}
+        />
+        <Route
+          path="/chatbot"
+          element={<RestASRPage  />}
         />
 
 

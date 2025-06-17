@@ -152,8 +152,8 @@ const ArtistHome: React.FC = () => {
       data.ifsc_code &&
       data.account_number &&
       data.bank_name &&
-      data.branch_name &&
-      data.cancelled_cheque;
+      data.branch_name // &&
+      // data.cancelled_cheque;
 
     // console.log("🏦 Bank details check:", bankDetailsComplete);
     // console.log("🏦 Bank details breakdown:", {

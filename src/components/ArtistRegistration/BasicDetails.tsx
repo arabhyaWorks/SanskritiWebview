@@ -85,6 +85,13 @@ const BasicDetails = ({ onNext, formData, updateFormData }) => {
 
     setIsSubmitting(true);
 
+    // Helper function to format date from YYYY-MM-DD to DD-MM-YYYY
+    const formatDate = (date) => {
+      if (!date) return "";
+      const [year, month, day] = date.split("-");
+      return `${day}-${month}-${year}`;
+    };
+
     const payload = {
       token: "cultureapisanindiatoken",
       id: localStorage.getItem("artistId") || "10060",
@@ -104,7 +111,7 @@ const BasicDetails = ({ onNext, formData, updateFormData }) => {
           : "1",
       website: formData.website,
       applicant_photo: formData.applicant_photo,
-      date_of_birth: formData.dob,
+      date_of_birth: formatDate(formData.dob),
     };
 
     console.log("📤 Submitting basic details:", payload);
